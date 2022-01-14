@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SecondPageComponent } from './second-page.component';
 
-describe('InProgressPageComponent', () => {
+describe('second page', () => {
   let component: SecondPageComponent;
   let fixture: ComponentFixture<SecondPageComponent>;
 

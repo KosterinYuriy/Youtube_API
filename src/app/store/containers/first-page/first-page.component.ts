@@ -1,9 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {Observable, interval } from "rxjs";
-import { Store, select } from '@ngrx/store';
-import {NgxSpinnerService} from "ngx-spinner";
-import {YoutubeService} from "../../../youtube.service";
-import {takeUntil} from "rxjs/operators";
+import {Component, OnInit} from '@angular/core';
+import {YoutubeService} from "../../services/youtube.service";
+import {IVideo} from "../../models/video.interface";
 
 
 
@@ -14,27 +11,32 @@ import {takeUntil} from "rxjs/operators";
 })
 export class FirstPageComponent implements OnInit {
 
-  videos: any[] = [];
+  videos: IVideo[] = [];
 
-  constructor(private spinner: NgxSpinnerService, private youTubeService: YoutubeService) { }
+  constructor(private youTubeService: YoutubeService) {
+  }
 
 
   ngOnInit() {
-    this.spinner.show()
-    setTimeout(()=>
-    {
-      this.spinner.hide()
-    },3000)
-    this.videos = [];
-    this.youTubeService
-      .getVideosForChanel('UCW5YeuERMmlnqo4oq8vwUpg', 15)
 
-      .subscribe(lists => {
-        // @ts-ignore
-        for (let element of lists["items"]) {
-          this.videos.push(element)
+    this.videos = [];
+    this.youTubeService.getVideosForChanel('UCW5YeuERMmlnqo4oq8vwUpg', 15)
+      .subscribe((lists: any) => {
+
+        for (let element of lists['items']) {
+
+          let res: IVideo = {
+            videoId: element.id.videoId,
+            imgSource: element.snippet.thumbnails.medium.url,
+            title: element.snippet.title,
+            description: element.snippet.description.slice(0, 80)
+          }
+
+          this.videos.push(res)
         }
-      });
+
+      })
+
   }
 
 }

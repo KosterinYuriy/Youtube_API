@@ -37,6 +37,7 @@ import { HttpClientModule } from '@angular/common/http';
     LoginPageComponent,
   ],
     imports: [
+
         BrowserModule,
         AppRoutingModuleModule,
         FormsModule,
@@ -50,7 +51,7 @@ import { HttpClientModule } from '@angular/common/http';
         StoreRouterConnectingModule.forRoot(),
         ReactiveFormsModule
     ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

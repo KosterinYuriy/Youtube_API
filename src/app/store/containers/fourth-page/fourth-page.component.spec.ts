@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FourthPageComponent } from './fourth-page.component';
 
-describe('StaffPageComponent', () => {
+describe('fourth page', () => {
   let component: FourthPageComponent;
   let fixture: ComponentFixture<FourthPageComponent>;
 
