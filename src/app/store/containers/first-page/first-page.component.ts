@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {YoutubeService} from "../../services/youtube.service";
 import {IVideo} from "../../models/video.interface";
-
+import { IListsOfVideos } from "../../models/listsOfVideos.interface"
 
 
 @Component({
@@ -21,9 +21,9 @@ export class FirstPageComponent implements OnInit {
 
     this.videos = [];
     this.youTubeService.getVideosForChanel('UCW5YeuERMmlnqo4oq8vwUpg', 15)
-      .subscribe((lists: any) => {
+      .subscribe((lists : IListsOfVideos)  => {
 
-        for (let element of lists['items']) {
+        for (let element of lists.items) {
 
           let res: IVideo = {
             videoId: element.id.videoId,
