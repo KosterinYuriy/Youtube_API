@@ -2,24 +2,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FourthPageComponent } from './fourth-page.component';
 
-describe('fourth page', () => {
-  let component: FourthPageComponent;
-  let fixture: ComponentFixture<FourthPageComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ FourthPageComponent ]
-    })
-    .compileComponents();
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(FourthPageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
+describe('FourthPageComponent (minimal)', () => {
   it('should create', () => {
-    expect(component).toBeTruthy();
+    TestBed.configureTestingModule({declarations: [FourthPageComponent]});
+    const fixture = TestBed.createComponent(FourthPageComponent);
+    const component = fixture.componentInstance;
+    expect(component).toBeDefined();
   });
 });

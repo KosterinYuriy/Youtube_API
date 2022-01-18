@@ -20,12 +20,6 @@ export interface IListsOfVideos {
           width: number
         }
       }
-
     }
   }],
-  kind: string,
-  nextPageToken: string,
-  pageInfo: {totalResults: number, resultsPerPage: number},
-  regionCode: string
-
 }

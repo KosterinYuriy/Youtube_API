@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -19,26 +19,19 @@ import { FirstPageComponent } from "./store/containers/first-page/first-page.com
 import { AppRoutingModuleModule } from "./app-routing-module/app-routing-module.module";
 import { LoginPageComponent } from './store/containers/login-page/login-page.component';
 import { HttpClientModule } from '@angular/common/http';
+import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/compiler";
 
 
-
+// import {BoardModule} from "./components/board/board.module";
 
 
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    BoardComponent,
-    ThirdPageComponent,
-    FourthPageComponent,
-    LogoutPageComponent,
-    FirstPageComponent,
-    LoginPageComponent,
-  ],
-    imports: [
 
+    imports: [
         BrowserModule,
+        //BoardModule,
         AppRoutingModuleModule,
         FormsModule,
         HttpClientModule,
@@ -51,7 +44,21 @@ import { HttpClientModule } from '@angular/common/http';
         StoreRouterConnectingModule.forRoot(),
         ReactiveFormsModule
     ],
+
+  declarations: [
+    AppComponent,
+    BoardComponent,
+    ThirdPageComponent,
+    FourthPageComponent,
+    LogoutPageComponent,
+    FirstPageComponent,
+    LoginPageComponent,
+  ],
+
   providers: [HttpClientModule],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  //schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+
 })
 export class AppModule { }
+
