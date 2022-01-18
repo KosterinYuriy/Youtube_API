@@ -18,6 +18,10 @@ import { LogoutPageComponent } from "./store/containers/logout-page/logout-page.
 import { FirstPageComponent } from "./store/containers/first-page/first-page.component";
 import { AppRoutingModuleModule } from "./app-routing-module/app-routing-module.module";
 import { LoginPageComponent } from './store/containers/login-page/login-page.component';
+import { HttpClientModule } from '@angular/common/http';
+
+
+
 
 
 
@@ -33,9 +37,11 @@ import { LoginPageComponent } from './store/containers/login-page/login-page.com
     LoginPageComponent,
   ],
     imports: [
+
         BrowserModule,
         AppRoutingModuleModule,
         FormsModule,
+        HttpClientModule,
         StoreModule.forRoot( {
 
         }),
@@ -45,7 +51,7 @@ import { LoginPageComponent } from './store/containers/login-page/login-page.com
         StoreRouterConnectingModule.forRoot(),
         ReactiveFormsModule
     ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

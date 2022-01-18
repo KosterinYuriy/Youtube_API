@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {Observable, interval } from "rxjs";
-import { Store, select } from '@ngrx/store';
-
+import {Component, OnInit} from '@angular/core';
+import {YoutubeService} from "../../services/youtube.service";
+import {IVideo} from "../../models/video.interface";
+import { IListsOfVideos } from "../../models/listsOfVideos.interface"
 
 
 @Component({
@@ -11,9 +11,31 @@ import { Store, select } from '@ngrx/store';
 })
 export class FirstPageComponent implements OnInit {
 
+  videos: IVideo[] = [];
 
-  ngOnInit()
-  {
+  constructor(private youTubeService: YoutubeService) {
+  }
+
+
+  ngOnInit() {
+
+    this.videos = [];
+    this.youTubeService.getVideosForChanel('UCW5YeuERMmlnqo4oq8vwUpg', 15)
+      .subscribe((lists : IListsOfVideos)  => {
+
+        for (let element of lists.items) {
+
+          let res: IVideo = {
+            videoId: element.id.videoId,
+            imgSource: element.snippet.thumbnails.medium.url,
+            title: element.snippet.title,
+            description: element.snippet.description.slice(0, 80)
+          }
+
+          this.videos.push(res)
+        }
+
+      })
 
   }
 
