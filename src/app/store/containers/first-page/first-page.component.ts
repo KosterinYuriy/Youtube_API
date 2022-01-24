@@ -37,10 +37,6 @@ export class FirstPageComponent implements OnInit {
   }
 
 
-  ngAfterViewInit() {
-    this.elementRef.nativeElement.querySelector(".description")
-      .addEventListener('click', this.onClick.bind(this));
-  }
 
   onClick(event: any) {
     console.log(event);
@@ -48,7 +44,8 @@ export class FirstPageComponent implements OnInit {
 
 
   OnModal() {
-    console.log("OnModal func")
+    this.youTubeService.updateVideoForChanel("UCW5YeuERMmlnqo4oq8vwUpg")
+    console.log("Request sent")
 }
 
 
