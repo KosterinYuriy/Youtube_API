@@ -1,0 +1,39 @@
+.form-wrapper{
+  height: 20vh;
+  width: 50vh;
+  background: #464071;
+  border-radius: 30px 30px 30px 30px;
+  padding: 20px;
+}
+
+.form{
+
+}
+
+.form-buttons{
+  display: flex;
+  padding: 10px;
+}
+.form-buttons button{
+  margin: auto;
+  min-width: 3.4vw;
+}
+
+.form-fields{
+  display: flex;
+  flex-direction: column;
+}
+
+.form-fields__item {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 20vw;
+}
+
+.form-fields__item label {
+  padding: 5px;
+  margin-left: auto;
+  margin-right: auto;
+}
+

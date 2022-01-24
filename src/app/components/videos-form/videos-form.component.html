@@ -1,0 +1,47 @@
+
+<div class="form-wrapper">
+  <div class="form">
+    <form [formGroup]="videosForm" (ngSubmit)="onSubmit()">
+      <div class="form-fields">
+        <div class="form-fields__item">
+          <label for="VideosTitle">Videos Title</label>
+          <input
+            type="text"
+            id="VideosTitle"
+            class="form-control"
+            formControlName="VideosTitle">
+        </div>
+        <div class="form-fields__item" >
+          <label for="VideosDescription">Videos Description</label>
+          <input
+            type="text"
+            id="VideosDescription"
+            class="form-control"
+            formControlName="VideosDescription">
+        </div>
+      </div>
+      <div >
+        <div class="form-buttons">
+          <button type="submit">Ok</button>
+          <button type="button">Cancel</button>
+          <button type="button">lorem</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!--<div class="form-wrapper">-->
+<!--  <div class="form">-->
+
+<!--  </div>-->
+<!--</div>-->

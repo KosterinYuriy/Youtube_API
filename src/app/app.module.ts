@@ -19,45 +19,41 @@ import { FirstPageComponent } from "./store/containers/first-page/first-page.com
 import { AppRoutingModuleModule } from "./app-routing-module/app-routing-module.module";
 import { LoginPageComponent } from './store/containers/login-page/login-page.component';
 import { HttpClientModule } from '@angular/common/http';
-import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/compiler";
-
-
-// import {BoardModule} from "./components/board/board.module";
+import { VideosFormComponent } from './components/videos-form/videos-form.component';
+import {SecondPageComponent} from "./store/containers/second-page/second-page.component";
 
 
 
 
 @NgModule({
 
-    imports: [
-        BrowserModule,
-        //BoardModule,
-        AppRoutingModuleModule,
-        FormsModule,
-        HttpClientModule,
-        StoreModule.forRoot( {
-
-        }),
-        StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
-        EffectsModule.forRoot([AppEffects]),
-        RouterModule,
-        StoreRouterConnectingModule.forRoot(),
-        ReactiveFormsModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModuleModule,
+    FormsModule,
+    HttpClientModule,
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+    EffectsModule.forRoot([AppEffects]),
+    RouterModule,
+    StoreRouterConnectingModule.forRoot(),
+    ReactiveFormsModule,
+  ],
 
   declarations: [
     AppComponent,
     BoardComponent,
+    SecondPageComponent,
     ThirdPageComponent,
     FourthPageComponent,
     LogoutPageComponent,
     FirstPageComponent,
     LoginPageComponent,
+    VideosFormComponent,
   ],
 
   providers: [HttpClientModule],
   bootstrap: [AppComponent],
-  //schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
 })
 export class AppModule { }

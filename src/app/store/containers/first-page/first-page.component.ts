@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ElementRef, AfterViewInit} from '@angular/core';
 import {YoutubeService} from "../../services/youtube.service";
 import {IVideo} from "../../models/video.interface";
 import {IListsOfVideos} from "../../models/listsOfVideos.interface"
+
 
 
 @Component({
@@ -13,7 +14,7 @@ export class FirstPageComponent implements OnInit {
 
   videos: IVideo[] = [];
 
-  constructor(private youTubeService: YoutubeService) {
+  constructor(private youTubeService: YoutubeService, private elementRef:ElementRef) {
   }
 
 
@@ -32,8 +33,23 @@ export class FirstPageComponent implements OnInit {
         }
 
       })
-
+  console.log(this.videos)
   }
+
+
+  ngAfterViewInit() {
+    this.elementRef.nativeElement.querySelector(".description")
+      .addEventListener('click', this.onClick.bind(this));
+  }
+
+  onClick(event: any) {
+    console.log(event);
+  }
+
+
+  OnModal() {
+    console.log("OnModal func")
+}
 
 
 }

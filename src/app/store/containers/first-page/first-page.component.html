@@ -1,13 +1,15 @@
 <div class="scrollable-area">
-  <div *ngFor="let video of videos" class="col-xl-3 col-md-6 mb-4">
-    <div class="card border-0 shadow vh-50">
-      <a href="https://www.youtube.com/watch?v={{video.videoId}}" target="_blank">
+  <div *ngFor="let video of videos">
+    <div>
+      <a href="https://www.youtube.com/watch?v={{video.videoId}}"   >
         <img [src]="video.imgSource" class="card-img-top" alt="..."></a>
-      <div class="card-body text-center">
-        <h5 class="card-title mb-0">
-          <a href="https://www.youtube.com/watch?v={{video.videoId}}">{{video.title}}
-          </a></h5>
-        <div class="card-text text-black-50">{{video.description.slice(0, 80)}}</div>
+      <div>
+        <h5>
+          <a href="https://www.youtube.com/watch?v={{video.videoId}}" (click)="$event.preventDefault(); OnModal()">
+            {{video.title}}
+          </a>
+        </h5>
+        <div class="description">{{video.description.slice(0, 80)}}</div>
       </div>
     </div>
   </div>
