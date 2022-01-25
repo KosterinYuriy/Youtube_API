@@ -1,3 +1,9 @@
 export interface IRequestBody {
-  id: string
+  "id": string,
+  "brandingSettings": {
+    "channel": {
+      "description": string
+    }
+  }
 }
+

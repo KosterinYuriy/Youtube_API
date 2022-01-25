@@ -10,10 +10,15 @@ import {IRequestBody} from "../models/IRequestBody";
 export class YoutubeService {
 
   apiKey: string = 'AIzaSyBz1PwR8Q1abz_NIeQ0yg1rWNhK6Mmf9yw';
+  part: string = "brandingSettings"
   putRequestBody: IRequestBody = {
-
-    id: "0gor32MSyiA" // this is id for first received video
-  };
+    id: "UCZ1YKVCERHs3LlxsRWnv_yA",
+    brandingSettings: {
+      channel: {
+        description: "My description"
+      }
+    }
+  }
 
 
 
@@ -27,11 +32,10 @@ export class YoutubeService {
     return this.http.get<IListsOfVideos>(url)
   }
 
-  updateVideoForChanel(channel: string): Observable<IListsOfVideos>{
-    let url = 'https://www.googleapis.com/youtube/v3/channels' +
-      this.apiKey + '&channelId=' + channel + '&order=date&part=snippet &type=video'
+  updateChannelDescription(newDescription: string): Observable<IListsOfVideos>{
+    let url = 'https://www.googleapis.com/youtube/v3/channels' + '?part=brandingSettings'
 
-
+    this.putRequestBody.brandingSettings.channel.description = newDescription
     return this.http.put<IListsOfVideos>(url, this.putRequestBody)
   }
 }

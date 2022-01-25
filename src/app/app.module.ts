@@ -22,6 +22,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { VideosFormComponent } from './components/videos-form/videos-form.component';
 import {SecondPageComponent} from "./store/containers/second-page/second-page.component";
 
+import {GoogleLoginProvider, SocialLoginModule} from "angularx-social-login";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+
 
 
 
@@ -38,6 +41,8 @@ import {SecondPageComponent} from "./store/containers/second-page/second-page.co
     RouterModule,
     StoreRouterConnectingModule.forRoot(),
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    SocialLoginModule
   ],
 
   declarations: [
@@ -52,7 +57,21 @@ import {SecondPageComponent} from "./store/containers/second-page/second-page.co
     VideosFormComponent,
   ],
 
-  providers: [HttpClientModule],
+  providers: [
+    HttpClientModule,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: true,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider('972008513630-7avvlobhv10on2p03ibejru0vqlhgk9t.apps.googleusercontent.com') // your client id
+          }
+        ]
+      }
+    }
+  ],
   bootstrap: [AppComponent],
 
 })
