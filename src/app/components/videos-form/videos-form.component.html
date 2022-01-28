@@ -1,7 +1,6 @@
-
 <div class="form-wrapper">
   <div class="form">
-    <form [formGroup]="videosForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="videosForm">
       <div class="form-fields">
         <div class="form-fields__item">
           <label for="DefLanguage">Enter default language</label>
@@ -11,7 +10,7 @@
             class="form-control"
             formControlName="DefLanguage">
         </div>
-        <div class="form-fields__item" >
+        <div class="form-fields__item">
           <label for="ChannelDescription">Enter channel Description</label>
           <input
             type="text"
@@ -20,9 +19,9 @@
             formControlName="ChannelDescription">
         </div>
       </div>
-      <div >
+      <div>
         <div class="form-buttons">
-          <button type="submit" (click)="modalService.close('m-1'); onSubmit()" >Ok</button>
+          <button type="submit" (click)="modalService.close('m-1'); onSubmit()">Ok</button>
           <button type="button" (click)="modalService.close('m-1')">Cancel</button>
           <button type="button">lorem</button>
         </div>
@@ -31,17 +30,3 @@
   </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-<!--<div class="form-wrapper">-->
-<!--  <div class="form">-->
-
-<!--  </div>-->
-<!--</div>-->

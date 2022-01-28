@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ModalService } from "../modal";
-import { YoutubeService } from "../../store/services/youtube.service";
+import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {ModalService} from "../modal";
+import {YoutubeService} from "../../store/services/youtube.service";
 
 @Component({
   selector: 'app-videos-form',
@@ -14,7 +14,8 @@ export class VideosFormComponent implements OnInit {
 
 
   constructor(public modalService: ModalService,
-              private youtubeService: YoutubeService) {}
+              private youtubeService: YoutubeService) {
+  }
 
   ngOnInit() {
     this.initForm();
@@ -24,8 +25,7 @@ export class VideosFormComponent implements OnInit {
 
     let newDefaultLanguage = this.videosForm.get('DefLanguage')?.value
     let newDescription = this.videosForm.get('ChannelDescription')?.value
-    console.log( newDefaultLanguage,  newDescription)
-    this.youtubeService.updateChannelDescription(newDescription, newDefaultLanguage).subscribe((res)=> {
+    this.youtubeService.updateChannelDescription(newDescription, newDefaultLanguage).subscribe((res) => {
       console.log(res)
     })
 
