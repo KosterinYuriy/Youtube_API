@@ -25,7 +25,7 @@ import {SecondPageComponent} from "./store/containers/second-page/second-page.co
 import {GoogleLoginProvider, SocialLoginModule} from "angularx-social-login";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-
+import { ModalModule } from "./components/modal";
 
 
 @NgModule({
@@ -42,7 +42,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     StoreRouterConnectingModule.forRoot(),
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    SocialLoginModule
+    SocialLoginModule,
+    ModalModule
   ],
 
   declarations: [
@@ -66,7 +67,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider('972008513630-7avvlobhv10on2p03ibejru0vqlhgk9t.apps.googleusercontent.com') // your client id
+            provider: new GoogleLoginProvider('972008513630-7avvlobhv10on2p03ibejru0vqlhgk9t.apps.googleusercontent.com')
           }
         ]
       }

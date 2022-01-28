@@ -3,6 +3,7 @@ export interface IRequestBody {
   "brandingSettings": {
     "channel": {
       "description": string
+      "defaultLanguage": string
     }
   }
 }

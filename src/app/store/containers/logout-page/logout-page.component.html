@@ -1,1 +1,45 @@
-<p>logout-page works!</p>
+
+<button (click)="request()" >put request</button>
+
+<div class="main">
+  <section class="top-card">
+    <img src="{{user.photoUrl}}" alt="UserPhoto">  <div class="menu-icon">
+    <div class="menu item1"><i class="fas fa-heart"></i></div>
+    <div class="menu item2"><i class="fas fa-bars"></i></div>
+  </div>
+  </section>
+
+  <section class="middle-card">
+    <h1>{{ user.name }}</h1>
+    <p class="mail">{{ user.email }}</p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Atque iure earum,
+      molestiae voluptatibus amet minus dolore .
+    </p>
+  </section>
+</div>
+
+<div class="button" (click)="$event.preventDefault(); modalService.open('m-1')" >
+  <a href="#">Change data</a>
+</div>
+<div class="button" (click)="$event.preventDefault(); signInWithGoogle()" >
+  <a href="#">Log in</a>
+</div>
+<div class="button" (click)="$event.preventDefault(); signOutWithGoogle()" >
+  <a href="#">Log out</a>
+</div>
+<div class="button" (click)="$event.preventDefault(); refreshToken()" >
+  <a href="#">Refresh token</a>
+</div>
+
+
+<jw-modal id="m-1">
+  <app-videos-form> </app-videos-form>
+</jw-modal>
+
+
+
+
+
+
+
