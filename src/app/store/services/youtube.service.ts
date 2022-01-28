@@ -6,6 +6,7 @@ import {IRequestBody} from "../models/IRequestBody";
 import { SocialUser} from "angularx-social-login";
 import {IUpdateChannelDescription} from "../models/UpdateChannelDescription.interface";
 import { authService } from "./auth.service";
+import {IVideo} from "../models/video.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,8 @@ export class YoutubeService {
 
 
   apiKey: string = 'AIzaSyBz1PwR8Q1abz_NIeQ0yg1rWNhK6Mmf9yw';
+
+  public videos: IVideo[] = [];
 
   putRequestBody: IRequestBody = {
     id: "UCZ1YKVCERHs3LlxsRWnv_yA",
@@ -52,11 +55,23 @@ export class YoutubeService {
 
 
 
-  getVideosForChanel(channel: string, maxResults: number): Observable<IListsOfVideos> {
+  getVideosForChanel(channel: string, maxResults: number): Subscription {
     let url = 'https://www.googleapis.com/youtube/v3/search?key=' +
       this.apiKey + '&channelId=' + channel + '&order=date&part=snippet &type=video,id&maxResults=' + maxResults
 
-    return this.http.get<IListsOfVideos>(url)
+    return this.http.get<IListsOfVideos>(url).subscribe((lists: IListsOfVideos) => {
+      for (let element of lists.items) {
+        let res: IVideo = {
+          videoId: element.id.videoId,
+          imgSource: element.snippet.thumbnails.medium.url,
+          title: element.snippet.title,
+          description: element.snippet.description.slice(0, 80)
+        }
+        this.videos.push(res)
+      }
+
+    })
+
   }
 
 

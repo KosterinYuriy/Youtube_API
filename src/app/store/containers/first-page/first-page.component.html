@@ -1,7 +1,7 @@
 <h1>Videos from channel Net Ninja</h1>
 
 <div class="scrollable-area">
-  <div *ngFor="let video of videos">
+  <div *ngFor="let video of youTubeService.videos">
     <div>
       <a href="https://www.youtube.com/watch?v={{video.videoId}}"   >
         <img [src]="video.imgSource" class="card-img-top" alt="..."></a>
