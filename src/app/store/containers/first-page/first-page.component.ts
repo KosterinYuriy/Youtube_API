@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {YoutubeService} from "../../services/youtube.service";
-
+import { SocialAuthService } from "angularx-social-login";
 
 
 @Component({
@@ -11,7 +11,8 @@ import {YoutubeService} from "../../services/youtube.service";
 export class FirstPageComponent implements OnInit {
 
 
-  constructor(public youTubeService: YoutubeService) {
+  constructor(public youTubeService: YoutubeService,
+              public socialAuthService: SocialAuthService) {
   }
 
 
@@ -25,4 +26,7 @@ export class FirstPageComponent implements OnInit {
     //todo
 }
 
+  logout() {
+    this.youTubeService.signOutWithGoogle()
+  }
 }

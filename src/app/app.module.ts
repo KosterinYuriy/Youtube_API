@@ -26,19 +26,28 @@ import {GoogleLoginProvider, SocialLoginModule} from "angularx-social-login";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { ModalModule } from "./components/modal";
+import {AuthGuardService} from "./store/services/AuthGuard.service";
 
 
 @NgModule({
 
   imports: [
     BrowserModule,
-    AppRoutingModuleModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({}
+    ),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
     EffectsModule.forRoot([AppEffects]),
-    RouterModule,
+    RouterModule.forRoot([
+      { path: 'login', component: LoginPageComponent},
+      { path: 'first', component: FirstPageComponent, canActivate: [AuthGuardService]},
+      { path: 'second', component: SecondPageComponent, canActivate: [AuthGuardService] },
+      { path: 'third', component: ThirdPageComponent, canActivate: [AuthGuardService]},
+      { path: 'fourth', component: FourthPageComponent, canActivate: [AuthGuardService]},
+      { path: 'logout', component: LogoutPageComponent, canActivate: [AuthGuardService] },
+      { path: '**', component: LoginPageComponent },
+    ]),
     StoreRouterConnectingModule.forRoot(),
     ReactiveFormsModule,
     BrowserAnimationsModule,
@@ -71,7 +80,8 @@ import { ModalModule } from "./components/modal";
           }
         ]
       }
-    }
+    },
+    AuthGuardService
   ],
   bootstrap: [AppComponent],
 

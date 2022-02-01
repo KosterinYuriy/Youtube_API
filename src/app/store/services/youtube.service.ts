@@ -33,8 +33,7 @@ export class YoutubeService {
   public user: SocialUser = new SocialUser;
 
   constructor(public http: HttpClient,
-              private authService: authService
-              ) {}
+              private authService: authService) {}
 
   authenticate(): void {
     this.authService.authenticate()

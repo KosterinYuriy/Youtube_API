@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {GoogleLoginProvider, SocialAuthService, SocialUser} from "angularx-social-login";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ export class authService {
   private loggedIn: boolean = false;
   public access_token = 'token'
 
-  constructor(private socialAuthService: SocialAuthService,) {}
+  constructor(private socialAuthService: SocialAuthService,
+              private router: Router,) {}
 
   authenticate(): void {
     this.socialAuthService.authState.subscribe((user) => {
@@ -33,7 +35,9 @@ export class authService {
 
   signOutWithGoogle(): void {
     this.socialAuthService.signOut().then(r => console.log("Signed out"));
-    console.log("Signed out")
+    this.router.navigateByUrl('/', {skipLocationChange: false}).then(() => {
+      this.router.navigate(['/login']).then(r => console.log("navigated"));
+    });
   }
 
   refreshToken(): void {
