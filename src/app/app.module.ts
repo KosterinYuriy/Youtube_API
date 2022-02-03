@@ -16,17 +16,21 @@ import { ThirdPageComponent } from "./store/containers/third-page/third-page.com
 import { FourthPageComponent } from "./store/containers/fourth-page/fourth-page.component";
 import { LogoutPageComponent } from "./store/containers/logout-page/logout-page.component";
 import { FirstPageComponent } from "./store/containers/first-page/first-page.component";
-import { AppRoutingModuleModule } from "./app-routing-module/app-routing-module.module";
 import { LoginPageComponent } from './store/containers/login-page/login-page.component';
 import { HttpClientModule } from '@angular/common/http';
-import { VideosFormComponent } from './components/videos-form/videos-form.component';
 import {SecondPageComponent} from "./store/containers/second-page/second-page.component";
 
 import {GoogleLoginProvider, SocialLoginModule} from "angularx-social-login";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-import { ModalModule } from "./components/modal";
 import {AuthGuardService} from "./store/services/AuthGuard.service";
+import {MatIconModule} from "@angular/material/icon";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
+import {MatMenuModule} from "@angular/material/menu";
+import {UpdateChannelDescriptionForm} from "./components/angular-material-modal/angular-modal.component";
+import {MatDialogModule} from "@angular/material/dialog";
 
 
 @NgModule({
@@ -40,19 +44,24 @@ import {AuthGuardService} from "./store/services/AuthGuard.service";
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
     EffectsModule.forRoot([AppEffects]),
     RouterModule.forRoot([
-      { path: 'login', component: LoginPageComponent},
-      { path: 'first', component: FirstPageComponent, canActivate: [AuthGuardService]},
-      { path: 'second', component: SecondPageComponent, canActivate: [AuthGuardService] },
-      { path: 'third', component: ThirdPageComponent, canActivate: [AuthGuardService]},
-      { path: 'fourth', component: FourthPageComponent, canActivate: [AuthGuardService]},
-      { path: 'logout', component: LogoutPageComponent, canActivate: [AuthGuardService] },
-      { path: '**', component: LoginPageComponent },
+      {path: 'login', component: LoginPageComponent},
+      {path: 'home', component: FirstPageComponent, canActivate: [AuthGuardService]},
+      {path: 'second', component: SecondPageComponent, canActivate: [AuthGuardService]},
+      {path: 'third', component: ThirdPageComponent, canActivate: [AuthGuardService]},
+      {path: 'profile', component: FourthPageComponent, canActivate: [AuthGuardService]},
+      {path: 'logout', component: LogoutPageComponent, canActivate: [AuthGuardService]},
+      {path: '**', component: LoginPageComponent},
     ]),
     StoreRouterConnectingModule.forRoot(),
     ReactiveFormsModule,
     BrowserAnimationsModule,
     SocialLoginModule,
-    ModalModule
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatDialogModule,
   ],
 
   declarations: [
@@ -64,7 +73,7 @@ import {AuthGuardService} from "./store/services/AuthGuard.service";
     LogoutPageComponent,
     FirstPageComponent,
     LoginPageComponent,
-    VideosFormComponent,
+    UpdateChannelDescriptionForm
   ],
 
   providers: [
@@ -87,4 +96,3 @@ import {AuthGuardService} from "./store/services/AuthGuard.service";
 
 })
 export class AppModule { }
-

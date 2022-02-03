@@ -10,7 +10,7 @@ import { FourthPageComponent } from "../store/containers/fourth-page/fourth-page
 
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
-  {path: 'first',  component: FirstPageComponent},
+  {path: 'home',  component: FirstPageComponent},
   { path: 'second', component: SecondPageComponent },
   { path: 'third', component: ThirdPageComponent },
   { path: 'fourth', component: FourthPageComponent },

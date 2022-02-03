@@ -8,11 +8,12 @@ import { SocialAuthService } from "angularx-social-login";
   templateUrl: './first-page.component.html',
   styleUrls: ['./first-page.component.scss']
 })
+
+
 export class FirstPageComponent implements OnInit {
 
 
-  constructor(public youTubeService: YoutubeService,
-              public socialAuthService: SocialAuthService) {
+  constructor(public youTubeService: YoutubeService) {
   }
 
 
@@ -26,7 +27,4 @@ export class FirstPageComponent implements OnInit {
     //todo
 }
 
-  logout() {
-    this.youTubeService.signOutWithGoogle()
-  }
 }

@@ -2,7 +2,7 @@ p { font-family: Lato, sans-serif; }
 
 h1 { font-family: Lato, sans-serif; }
 
-$screen-height: 150%;
+$screen-height: 100%;
 $screen-width: 88%;
 
  .container {
@@ -17,3 +17,10 @@ $screen-width: 88%;
   background-color: #3b3759;
 
 }
+
+
+ app-board{
+   width: 100%;
+ }
+
+

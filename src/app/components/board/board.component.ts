@@ -1,5 +1,5 @@
-import {Component, NgModule, OnInit} from '@angular/core';
-
+import {Component, OnInit} from '@angular/core';
+import { authService } from "../../store/services/auth.service";
 
 
 @Component({
@@ -9,9 +9,10 @@ import {Component, NgModule, OnInit} from '@angular/core';
 
 })
 
+
 export class BoardComponent implements OnInit {
 
-  constructor() { }
+  constructor(public authService: authService) { }
 
   ngOnInit(): void {
   }

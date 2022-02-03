@@ -1,9 +1,7 @@
+<h1>Home page</h1>
+
 <h1>Videos from channel Net Ninja</h1>
-<div *ngIf="socialAuthService.authState | async as socialUser">
-  <p>Hello, {{socialUser.name}}!</p>
-  <p>Your email: {{socialUser.email}}</p>
-  <button (click)="logout()">Logout</button>
-</div>
+
 <div class="scrollable-area">
   <div *ngFor="let video of youTubeService.videos">
     <div>

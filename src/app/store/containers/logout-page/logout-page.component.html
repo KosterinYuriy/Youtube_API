@@ -1,6 +1,9 @@
-<div class="main">
+<h1>This is profile page</h1>
+
+
+<div class="main" *ngIf="socialAuthService.authState | async as socialUser">
   <section class="top-card">
-    <img src="{{youTubeService.user.photoUrl}}" alt="UserPhoto">
+    <img src="{{socialUser.photoUrl}}" alt="UserPhoto">
     <div class="menu-icon">
       <div class="menu item1"><i class="fas fa-heart"></i></div>
       <div class="menu item2"><i class="fas fa-bars"></i></div>
@@ -8,32 +11,24 @@
   </section>
 
   <section class="middle-card">
-    <h1>{{ youTubeService.user.name }}</h1>
-    <p class="mail">{{ youTubeService.user.email }}</p>
+    <h1> {{socialUser.name}}</h1>
+    <p class="mail">{{socialUser.email}}</p>
     <p>
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Atque iure earum,
-      molestiae voluptatibus amet minus dolore .
+      User description User description User description User description
+      User description User description User description User description
+
     </p>
   </section>
 </div>
 
-<div class="button" (click)="$event.preventDefault(); modalService.open('m-1')">
+<div class="button" (click)="$event.preventDefault(); onOpenDialog()">
   <a href="#">Change data</a>
 </div>
-<div class="button" (click)="$event.preventDefault(); signInWithGoogle()">
-  <a href="#">Log in</a>
-</div>
-<div class="button" (click)="$event.preventDefault(); signOutWithGoogle()">
-  <a href="#">Log out</a>
-</div>
+
 <div class="button" (click)="$event.preventDefault(); refreshToken()">
   <a href="#">Refresh token</a>
 </div>
 
-
-<jw-modal id="m-1">
-  <app-videos-form></app-videos-form>
-</jw-modal>
 
 
 
