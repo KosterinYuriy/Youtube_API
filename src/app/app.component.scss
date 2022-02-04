@@ -2,18 +2,19 @@ p { font-family: Lato, sans-serif; }
 
 h1 { font-family: Lato, sans-serif; }
 
-$screen-height: 150%;
-$screen-width: 88%;
+$screen-height: 100%;
+$screen-width: 100%;
 
  .container {
-  display: flex;
-  position: center;
+
   margin-left: auto;
   margin-right: auto;
-  margin-top: 1.65%;
-  min-height: $screen-height;
+
   width: $screen-width;
    border-radius: 40px 40px 40px 40px;
   background-color: #3b3759;
 
 }
+
+
+

@@ -1,0 +1,17 @@
+<div mat-dialog-content>
+  <p>Please enter new data</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Channel default language</mat-label>
+    <input matInput [(ngModel)]="data.language">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Channel description</mat-label>
+    <input matInput [(ngModel)]="data.description">
+  </mat-form-field>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data" >Ok</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+</div>
+
