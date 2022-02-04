@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {YoutubeService} from "../../services/youtube.service";
-import {HttpHeaders, HttpClient} from "@angular/common/http";
 import { SocialAuthService } from "angularx-social-login";
-import {AngularModalService} from "../../../components/angular-material-modal/angular-modal.service";
+import {UpdateChannelDescriptionForm} from "../../../components/angular-material-modal/angular-modal.component";
+import {MatDialog} from "@angular/material/dialog";
 
 
 @Component({
@@ -12,13 +12,13 @@ import {AngularModalService} from "../../../components/angular-material-modal/an
 })
 export class LogoutPageComponent implements OnInit {
 
-
-  headers = new HttpHeaders()
+  defaultLanguage !: string
+  defaultDescription !: string
 
   constructor(public youTubeService: YoutubeService,
               public socialAuthService: SocialAuthService,
-              public angularModalService: AngularModalService,
-              public http: HttpClient) {
+              public matDialog: MatDialog,
+              ) {
   }
 
   refreshToken(): void {
@@ -29,8 +29,19 @@ export class LogoutPageComponent implements OnInit {
     this.youTubeService.authenticate()
   }
 
-  onOpenDialog(): void {
-    this.angularModalService.openDialog()
+  openDialog(): void {
+    const dialogRef = this.matDialog.open(UpdateChannelDescriptionForm, {
+      width: '350px',
+      data: {language: this.defaultLanguage, description: this.defaultDescription},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.youTubeService.updateChannelDescription(result.description, result.language).subscribe((res)=>{
+        console.log(res)
+      })
+      console.log("res", result)
+    });
   }
 
 }

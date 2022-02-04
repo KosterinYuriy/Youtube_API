@@ -21,13 +21,9 @@
   </section>
 </div>
 
-<div class="button" (click)="$event.preventDefault(); onOpenDialog()">
-  <a href="#">Change data</a>
-</div>
 
-<div class="button" (click)="$event.preventDefault(); refreshToken()">
-  <a href="#">Refresh token</a>
-</div>
+<button mat-raised-button color="primary" (click)="openDialog()">Change data </button>
+<button mat-raised-button color="accent" (click)="refreshToken()">Refresh token</button>
 
 
 

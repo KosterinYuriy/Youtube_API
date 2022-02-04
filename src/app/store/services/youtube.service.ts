@@ -1,12 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, Subscription} from "rxjs";
+import {Observable} from "rxjs";
 import {IListsOfVideos} from "../models/listsOfVideos.interface";
 import {IRequestBody} from "../models/IRequestBody";
-import { SocialUser} from "angularx-social-login";
 import {IUpdateChannelDescription} from "../models/UpdateChannelDescription.interface";
-import { authService } from "./auth.service";
-import {IVideo} from "../models/video.interface";
+import { AuthService } from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +12,11 @@ import {IVideo} from "../models/video.interface";
 export class YoutubeService {
 
 
+
+
   apiKey: string = 'AIzaSyBz1PwR8Q1abz_NIeQ0yg1rWNhK6Mmf9yw';
 
-  public videos: IVideo[] = [];
+
 
   putRequestBody: IRequestBody = {
     id: "UCZ1YKVCERHs3LlxsRWnv_yA",
@@ -30,23 +30,15 @@ export class YoutubeService {
 
   headers = new HttpHeaders()
 
-  public user: SocialUser = new SocialUser;
 
   constructor(public http: HttpClient,
-              private authService: authService) {}
+              private authService: AuthService) {}
 
   authenticate(): void {
     this.authService.authenticate()
     console.log("ac", this.authService.access_token)
   };
 
-  signInWithGoogle(): void {
-    this.authService.signInWithGoogle()
-  }
-
-  signOutWithGoogle(): void {
-    this.authService.signOutWithGoogle()
-  }
 
   refreshToken(): void {
     this.authService.refreshToken()
@@ -54,22 +46,11 @@ export class YoutubeService {
 
 
 
-  getVideosForChanel(channel: string, maxResults: number): Subscription {
+  getVideosForChanel(channel: string, maxResults: number): Observable<IListsOfVideos> {
     let url = 'https://www.googleapis.com/youtube/v3/search?key=' +
       this.apiKey + '&channelId=' + channel + '&order=date&part=snippet &type=video,id&maxResults=' + maxResults
 
-    return this.http.get<IListsOfVideos>(url).subscribe((lists: IListsOfVideos) => {
-      for (let element of lists.items) {
-        let res: IVideo = {
-          videoId: element.id.videoId,
-          imgSource: element.snippet.thumbnails.medium.url,
-          title: element.snippet.title,
-          description: element.snippet.description.slice(0, 80)
-        }
-        this.videos.push(res)
-      }
-
-    })
+    return this.http.get<IListsOfVideos>(url)
 
   }
 

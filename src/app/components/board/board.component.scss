@@ -11,7 +11,6 @@
   justify-content: space-between;
   background-color: #464071;
   width: 100%;
-  border-radius: 40px;
 
 }
 
@@ -63,40 +62,17 @@ nav mat-icon{
 
 
 
-.card-area-scrollable {
-  height: 720px;
-  overflow-y: scroll;
-  overflow-x: hidden;
+.card-area {
   padding: 10px 0 10px 0;
-  margin: 2px 0 2px 10px;
+  margin: 2% 2% 2% 5%;
 
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-content: flex-start;
+
+
 
 }
 
-.card-area-scrollable::-webkit-scrollbar {
-  width: 1em;
-}
-
-.card-area-scrollable::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-}
-
-.card-area-scrollable::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
-}
 
 .central-icons-wrapper{
   display: flex;
   width: 100%;
-
-}
-
-.profile-icon{
-
 }

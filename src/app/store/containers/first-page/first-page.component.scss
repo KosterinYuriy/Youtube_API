@@ -1,11 +1,10 @@
 .scrollable-area {
 
-  width: 90%;
-  display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-content: flex-start;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  justify-content: space-evenly;
+  justify-self: center;
 
 
 }
