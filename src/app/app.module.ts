@@ -31,38 +31,40 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
 import {UpdateChannelDescriptionForm} from "./components/angular-material-modal/angular-modal.component";
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatCardModule} from "@angular/material/card";
 
 
 @NgModule({
 
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    StoreModule.forRoot({}
-    ),
-    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
-    EffectsModule.forRoot([AppEffects]),
-    RouterModule.forRoot([
-      {path: 'login', component: LoginPageComponent},
-      {path: 'home', component: FirstPageComponent, canActivate: [AuthGuardService]},
-      {path: 'second', component: SecondPageComponent, canActivate: [AuthGuardService]},
-      {path: 'third', component: ThirdPageComponent, canActivate: [AuthGuardService]},
-      {path: 'profile', component: FourthPageComponent, canActivate: [AuthGuardService]},
-      {path: 'logout', component: LogoutPageComponent, canActivate: [AuthGuardService]},
-      {path: '**', component: LoginPageComponent},
-    ]),
-    StoreRouterConnectingModule.forRoot(),
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    SocialLoginModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatDialogModule,
-  ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        StoreModule.forRoot({}
+        ),
+        StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+        EffectsModule.forRoot([AppEffects]),
+        RouterModule.forRoot([
+            {path: 'login', component: LoginPageComponent},
+            {path: 'home', component: FirstPageComponent, canActivate: [AuthGuardService]},
+            {path: 'second', component: SecondPageComponent, canActivate: [AuthGuardService]},
+            {path: 'third', component: ThirdPageComponent, canActivate: [AuthGuardService]},
+            {path: 'profile', component: FourthPageComponent, canActivate: [AuthGuardService]},
+            {path: 'logout', component: LogoutPageComponent, canActivate: [AuthGuardService]},
+            {path: '**', component: LoginPageComponent},
+        ]),
+        StoreRouterConnectingModule.forRoot(),
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        SocialLoginModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatDialogModule,
+        MatCardModule,
+    ],
 
   declarations: [
     AppComponent,
