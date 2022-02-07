@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BehaviorSubject, Observable, Subscription} from "rxjs";
+import {BehaviorSubject, Observable, Subscription, of} from "rxjs";
 import {IListsOfVideos} from "../models/listsOfVideos.interface";
 import {IRequestBody} from "../models/IRequestBody";
 import {IUpdateChannelDescription} from "../models/UpdateChannelDescription.interface";
 import {AuthService} from "./auth.service";
-import {ISearchRequestBody} from "../models/searchRequestBody.interface";
 import {ISearchListsOfVideos} from "../models/searchListsOfVideos.interface";
 import {IVideo} from "../models/video.interface";
 
@@ -23,7 +22,6 @@ export class YoutubeService {
   public videos: IVideo[] = []
 
 
-
   putRequestBody: IRequestBody = {
     id: "UCZ1YKVCERHs3LlxsRWnv_yA",
     brandingSettings: {
@@ -37,35 +35,17 @@ export class YoutubeService {
 
   headers = new HttpHeaders()
 
-  public observableVideos: BehaviorSubject<IVideo[]>;
-  public observableVideosEmpty: BehaviorSubject<IVideo[]>;
-
   constructor(public http: HttpClient,
-              private authService: AuthService) {
-    this.observableVideos = new BehaviorSubject<IVideo[]>([]);
-    this.observableVideosEmpty = new BehaviorSubject<IVideo[]>([]);
-  }
+              private authService: AuthService) {}
 
 
-  getSearchVideos(): Observable<IVideo[]> {
-    return this.observableVideos.asObservable();
-  }
 
-  resetSearchVideos(): void {
-    this.observableVideos = this.observableVideosEmpty
-  }
-
-  setSearchVideos(newValue: IVideo[]): void {
-
-    this.observableVideos.next(newValue);
-
-    this.resetSearchVideos()  //try to reset the array, but it seems not working
-    console.log(this.observableVideos)
+  getSearchVideos_(): Observable<IVideo[]> {
+    return of(this.videos)
   }
 
   authenticate(): void {
     this.authService.authenticate()
-    console.log("ac", this.authService.access_token)
   };
 
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { YoutubeService } from "../../services/youtube.service";
 import {IVideo} from "../../models/video.interface";
+import {of} from "rxjs";
 
 @Component({
   selector: 'app-second-page',
@@ -9,16 +10,12 @@ import {IVideo} from "../../models/video.interface";
 })
 export class SecondPageComponent implements OnInit {
 
-  public videos: IVideo[] = []
 
   constructor(public youtubeService : YoutubeService) { }
 
 
-
   ngOnInit(): void {
-    this.youtubeService.getSearchVideos().subscribe((res)=>{
-      this.videos = res
-    })
+
   }
 
 }

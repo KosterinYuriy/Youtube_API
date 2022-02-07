@@ -3,6 +3,7 @@ import { AuthService } from "../../store/services/auth.service";
 import {YoutubeService} from "../../store/services/youtube.service";
 import {ISearchListsOfVideos} from "../../store/models/searchListsOfVideos.interface";
 import {IVideo} from "../../store/models/video.interface";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -16,15 +17,17 @@ import {IVideo} from "../../store/models/video.interface";
 
 export class BoardComponent implements OnInit {
 
-  public videos__: IVideo[] = []
-
   constructor(public authService: AuthService,
-              private youtubeService: YoutubeService) { }
+              private youtubeService: YoutubeService,
+              private router: Router) { }
 
 
   searchRequest(searchValue: string): void {
     this.youtubeService.getVideosForRequest(searchValue, 10).subscribe((res: ISearchListsOfVideos)=>{
-      console.log(res)
+
+      this.youtubeService.videos = []
+      console.log("zero youtube videos")
+
       for (let element of res.items) {
         let res2: IVideo = {
           videoId: element.id.videoId,
@@ -32,14 +35,18 @@ export class BoardComponent implements OnInit {
           title: element.snippet.title,
           description: element.snippet.description.slice(0, 80)
         }
-        this.videos__.push(res2)
+        this.youtubeService.videos.push(res2)
       }
-      this.youtubeService.setSearchVideos(this.videos__)
-      console.log(this.videos__)
     })
 
+    if (this.router.url === '/second'){
+      console.log('do nothing')
+    }else {
+      this.router.navigateByUrl('/').then(() => {
+        this.router.navigate(['/second']).then(r => console.log("navigated"));
+      });
+    }
   }
-
 
 
   ngOnInit(): void {

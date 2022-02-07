@@ -2,10 +2,8 @@
   <p>Second page works!</p>
 </div>
 
-
-
 <div class="scrollable-area">
-  <div *ngFor="let video of this.videos">
+  <div *ngFor="let video of this.youtubeService.videos">
     <mat-card class="example-card">
       <mat-card-header>
         <mat-card-title>{{video.title.slice(0, 40)+'...'}}</mat-card-title>
