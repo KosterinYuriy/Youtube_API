@@ -20,6 +20,7 @@ export class YoutubeService {
   apiKey: string = 'AIzaSyBz1PwR8Q1abz_NIeQ0yg1rWNhK6Mmf9yw';
 
   public videos: IVideo[] = []
+  public query!: string
 
 
   putRequestBody: IRequestBody = {
@@ -39,10 +40,6 @@ export class YoutubeService {
               private authService: AuthService) {}
 
 
-
-  getSearchVideos_(): Observable<IVideo[]> {
-    return of(this.videos)
-  }
 
   authenticate(): void {
     this.authService.authenticate()
@@ -64,9 +61,9 @@ export class YoutubeService {
   }
 
 
-  getVideosForRequest(request: string, maxResults: number): Observable<ISearchListsOfVideos> {
+  getVideosForRequest(maxResults: number): Observable<ISearchListsOfVideos> {
 
-    let SearchUrl = this.url + '?part=id&part=snippet&maxResults='+ maxResults + '&q='+ request +'&key=' + this.apiKey
+    let SearchUrl = this.url + '?part=id&part=snippet&maxResults='+ maxResults + '&q='+ this.query +'&key=' + this.apiKey
 
     return this.http.get<ISearchListsOfVideos>(SearchUrl)
   }
