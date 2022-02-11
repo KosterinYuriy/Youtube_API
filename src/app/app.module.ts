@@ -32,6 +32,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import {UpdateChannelDescriptionForm} from "./components/angular-material-modal/angular-modal.component";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatCardModule} from "@angular/material/card";
+import {CutTextPipe} from "./pipes/cutText.pipe";
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import {MatCardModule} from "@angular/material/card";
     LogoutPageComponent,
     FirstPageComponent,
     LoginPageComponent,
-    UpdateChannelDescriptionForm
+    UpdateChannelDescriptionForm,
+    CutTextPipe
   ],
 
   providers: [

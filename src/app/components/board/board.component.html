@@ -4,16 +4,19 @@
         <nav>
           <div class="left-items">
             <i class="material-icons white-icon icon-display" routerLink="/home" routerLinkActive="active">menu</i>
-            <i class="material-icons white-icon icon-display">video_library</i>
+            <i class="material-icons white-icon icon-display" routerLink="/second" routerLinkActive="active">video_library</i>
           </div>
           <div class="central-items">
-            <mat-form-field class="input-display">
+            <mat-form-field class="input-display" >
               <input id="app_search_input"
                      matInput
                      type="search"
+                     #app_search_input
                      placeholder="Enter smth"
-                     class="search-input">
-              <button matSuffix mat-button><mat-icon class="white-icon input-display">search</mat-icon></button>
+                     class="search-input" >
+              <button matSuffix mat-button><mat-icon class="white-icon input-display"
+                                                     (click)="searchRequest(app_search_input.value); app_search_input.value ='' ">search</mat-icon>
+              </button>
             </mat-form-field>
           </div>
           <div class="right-items">

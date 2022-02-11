@@ -35,9 +35,4 @@ export class FirstPageComponent implements OnInit {
   }
 
 
-  OnModal() {
-    console.log("On Modal func")
-    //todo
-}
-
 }
