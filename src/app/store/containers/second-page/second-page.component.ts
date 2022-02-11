@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { YoutubeService } from "../../services/youtube.service";
 import {IVideo} from "../../models/video.interface";
-import { Subscription} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
+import {of, Subscription} from "rxjs";
+import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({
   selector: 'app-second-page',
@@ -11,21 +11,26 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class SecondPageComponent implements OnInit {
 
-  searchQuery: string = '12345'
+  searchQuery!: string
+
+
+
+  public secondPageVideos!: IVideo[]
 
   private querySubscription: Subscription;
 
   constructor(public youtubeService : YoutubeService,
               private route: ActivatedRoute) {
     this.querySubscription = route. queryParams.subscribe(
-      (queryParam: any) => {
+      (queryParam: Params) => {
         this.searchQuery = queryParam['searchQuery'];
       }
     )
   }
 
 
-  ngOnInit(): void {
+
+    ngOnInit(): void {
     this.youtubeService.query = this.searchQuery
     this.youtubeService.getVideosForRequest(10).subscribe( (res) =>{
       this.youtubeService.videos = []
@@ -35,11 +40,15 @@ export class SecondPageComponent implements OnInit {
           videoId: element.id.videoId,
           imgSource: element.snippet.thumbnails.medium.url,
           title: element.snippet.title,
-          description: element.snippet.description.slice(0, 80)
+          description: element.snippet.description
         }
         this.youtubeService.videos.push(res2)
       }
+
+    this.secondPageVideos = this.youtubeService.videos
+
       })
+
   }
 
 }

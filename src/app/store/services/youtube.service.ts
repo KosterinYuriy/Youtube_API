@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BehaviorSubject, Observable, Subscription, of} from "rxjs";
+import { Observable, of, Subscription} from "rxjs";
 import {IListsOfVideos} from "../models/listsOfVideos.interface";
 import {IRequestBody} from "../models/IRequestBody";
 import {IUpdateChannelDescription} from "../models/UpdateChannelDescription.interface";
@@ -20,6 +20,7 @@ export class YoutubeService {
   apiKey: string = 'AIzaSyBz1PwR8Q1abz_NIeQ0yg1rWNhK6Mmf9yw';
 
   public videos: IVideo[] = []
+
   public query!: string
 
 

@@ -23,15 +23,11 @@ export class BoardComponent implements OnInit {
 
 
   searchRequest(searchValue: string): void {
-    this.youtubeService.query = searchValue
 
-    if (this.router.url === '/second'){
-      console.log('do nothing')
-    }else {
-      this.router.navigateByUrl('/').then(() => {
-        this.router.navigate(['/second'], { queryParams: { "searchQuery" : searchValue } } ).then(r =>{});
+    this.router.navigateByUrl('/').then(() => {
+      this.router.navigate(['/second'], {queryParams: {"searchQuery": searchValue}}).then(r => {
       });
-    }
+    });
   }
 
 
