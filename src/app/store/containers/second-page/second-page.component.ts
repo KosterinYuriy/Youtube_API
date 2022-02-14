@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { YoutubeService } from "../../services/youtube.service";
 import {IVideo} from "../../models/video.interface";
-import {of, Subscription} from "rxjs";
+import { Subscription} from "rxjs";
 import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({

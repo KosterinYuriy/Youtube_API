@@ -33,6 +33,9 @@ import {UpdateChannelDescriptionForm} from "./components/angular-material-modal/
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatCardModule} from "@angular/material/card";
 import {CutTextPipe} from "./pipes/cutText.pipe";
+import {
+  UpdateVideoData
+} from "./components/angular-material-modal/updateVideoData/angular-modal-video-dialog";
 
 
 @NgModule({
@@ -77,6 +80,7 @@ import {CutTextPipe} from "./pipes/cutText.pipe";
     FirstPageComponent,
     LoginPageComponent,
     UpdateChannelDescriptionForm,
+    UpdateVideoData,
     CutTextPipe
   ],
 

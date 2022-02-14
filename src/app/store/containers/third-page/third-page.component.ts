@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {YoutubeService} from "../../services/youtube.service";
 
 @Component({
   selector: 'app-third-page',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ThirdPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(public youtubeService : YoutubeService,
+              ) { }
+
 
   ngOnInit(): void {
+    this.youtubeService.authenticate()
   }
+
 
 }

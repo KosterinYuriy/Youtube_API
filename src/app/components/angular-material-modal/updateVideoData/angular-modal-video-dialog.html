@@ -1,0 +1,25 @@
+<div mat-dialog-content>
+  <p>Please enter new data</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Video default title (english)</mat-label>
+    <input matInput [(ngModel)]="data.title">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>video default description (english)</mat-label>
+    <input matInput [(ngModel)]="data.description">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>localization title (rus)</mat-label>
+    <input matInput [(ngModel)]="data.rusTitle">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>localization description (rus)</mat-label>
+    <input matInput [(ngModel)]="data.rusDescription">
+  </mat-form-field>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data" >Ok</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+</div>
+
