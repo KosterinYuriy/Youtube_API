@@ -21,7 +21,7 @@ export class SecondPageComponent implements OnInit {
 
   constructor(public youtubeService : YoutubeService,
               private route: ActivatedRoute) {
-    this.querySubscription = route. queryParams.subscribe(
+    this.querySubscription = route.queryParams.subscribe(
       (queryParam: Params) => {
         this.searchQuery = queryParam['searchQuery'];
       }

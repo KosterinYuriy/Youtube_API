@@ -1,6 +1,6 @@
 <h1>Home page</h1>
 
-<h1>Videos from your channel</h1>
+<h1>Videos from NetNinja Channel</h1>
 
 <div class="scrollable-area">
   <div  class="example-card-cover" *ngFor="let video of this.videos">
@@ -15,26 +15,8 @@
     <mat-card-actions>
       <button mat-button>LIKE</button>
       <button mat-button>SHARE</button>
-      <button mat-button (click)="onVideoChange(video.videoId)" > EDIT </button>
     </mat-card-actions>
   </mat-card>
   </div>
-
-
-<!--  <div *ngFor="let video of this.videos">-->
-<!--    <div>-->
-<!--      <a href="https://www.youtube.com/watch?v={{video.videoId}}"   >-->
-<!--        <img [src]="video.imgSource" class="card-img-top" alt="..."></a>-->
-<!--      <div>-->
-<!--        <h5>-->
-<!--          <a href="https://www.youtube.com/watch?v={{video.videoId}}" (click)="$event.preventDefault(); OnModal()">-->
-<!--            {{video.title}}-->
-<!--          </a>-->
-<!--        </h5>-->
-<!--        <div class="description">{{video.description.slice(0, 80)}}</div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
+</div>
 

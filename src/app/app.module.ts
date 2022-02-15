@@ -36,6 +36,7 @@ import {CutTextPipe} from "./pipes/cutText.pipe";
 import {
   UpdateVideoData
 } from "./components/angular-material-modal/updateVideoData/angular-modal-video-dialog";
+import {EditVideoComponent} from "./store/containers/edit-video-page/edit-video.component";
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import {
             {path: 'third', component: ThirdPageComponent, canActivate: [AuthGuardService]},
             {path: 'profile', component: FourthPageComponent, canActivate: [AuthGuardService]},
             {path: 'logout', component: LogoutPageComponent, canActivate: [AuthGuardService]},
+            {path: 'edit_video', component: EditVideoComponent, canActivate: [AuthGuardService]},
             {path: '**', component: LoginPageComponent},
         ]),
         StoreRouterConnectingModule.forRoot(),
@@ -79,9 +81,10 @@ import {
     LogoutPageComponent,
     FirstPageComponent,
     LoginPageComponent,
+    EditVideoComponent,
     UpdateChannelDescriptionForm,
     UpdateVideoData,
-    CutTextPipe
+    CutTextPipe,
   ],
 
   providers: [

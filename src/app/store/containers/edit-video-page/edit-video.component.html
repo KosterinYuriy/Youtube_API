@@ -1,0 +1,28 @@
+<div>Edit video page</div>
+<div mat-dialog-content>
+  <p>Please enter new data</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Video default title (english)</mat-label>
+    <input matInput #engTitle>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>video default description (english)</mat-label>
+    <input matInput #engDescr >
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>localization title (rus)</mat-label>
+    <input matInput  #rusTitle>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>localization description (rus)</mat-label>
+    <input matInput #rusDescr>
+  </mat-form-field>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onSubmit(engDescr.value, engTitle.value, rusTitle.value, rusDescr.value)">Ok</button>
+  <button mat-button >Cancel</button>
+</div>
