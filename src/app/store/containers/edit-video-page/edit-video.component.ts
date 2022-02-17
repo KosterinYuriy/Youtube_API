@@ -5,6 +5,7 @@ import {IUpdateVideoData} from "../../models/UpdateVideoData.interface";
 import {IUpdateVideoDescription} from "../../models/UpdateVideoDescription.interface";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 
 @Component({
@@ -15,6 +16,8 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 
 
 export class EditVideoComponent implements OnInit {
+
+  videoEditForm!: FormGroup
 
   public videos: IVideo[] = [];
   public data: IUpdateVideoData = {
@@ -30,20 +33,50 @@ export class EditVideoComponent implements OnInit {
   constructor(
     public youTubeService: YoutubeService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder,
   ) {
+    this._createForm();
     this.querySubscription = route.queryParams.subscribe((queryParam: Params) => {
         this.queryId = queryParam['&videoId='];
       })
   }
 
-  onSubmit(description: string, title: string,
-           rusTitle: string, rusDescription: string,): void {
+  private _createForm() {
+    this.videoEditForm = this.fb.group({
+      enTitle: ['', [Validators.required, Validators.maxLength(40)]],
+      enDescription: ['', [Validators.required, Validators.maxLength(80)],],
+      ruTitle: ['', [Validators.required, Validators.maxLength(40)]],
+      ruDescription: [ '', [Validators.required, Validators.maxLength(80)],],
+    })
 
-    console.log("id", this.queryId)
+  }
 
-    this.youTubeService.updateVideoDescription(description, title,
-      rusTitle, rusDescription, this.queryId).subscribe((res: IUpdateVideoDescription)=>{
+  get _enTitle() {
+    return this.videoEditForm.get('enTitle')!
+  }
+
+  get _enDescription() {
+    return this.videoEditForm.get('enDescription')!
+  }
+
+  get _ruTitle() {
+    return this.videoEditForm.get('ruTitle')!
+  }
+
+  get _ruDescription() {
+    return this.videoEditForm.get('ruDescription')!
+  }
+
+  onSubmit(): void {
+
+    const enTitle: string = this.videoEditForm.controls['enTitle'].value
+    const enDescription: string = this.videoEditForm.controls['enDescription'].value
+    const ruTitle: string = this.videoEditForm.controls['ruTitle'].value
+    const ruDescription: string = this.videoEditForm.controls['ruDescription'].value
+
+    this.youTubeService.updateVideoDescription( enDescription, enTitle,
+      ruTitle, ruDescription, this.queryId).subscribe((res: IUpdateVideoDescription)=>{
 
       this.router.navigateByUrl('/').then(() => {
         this.router.navigate(['/third']).then(r => {

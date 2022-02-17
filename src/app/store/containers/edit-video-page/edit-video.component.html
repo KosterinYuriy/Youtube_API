@@ -1,28 +1,58 @@
 <div>Edit video page</div>
-<div mat-dialog-content>
-  <p>Please enter new data</p>
+<br>
+<form [formGroup]="videoEditForm" novalidate >
   <mat-form-field appearance="fill">
     <mat-label>Video default title (english)</mat-label>
-    <input matInput #engTitle>
+    <input matInput type="text" formControlName="enTitle">
+    <div *ngIf="_enTitle.invalid && (_enTitle.touched || _enTitle.dirty)">
+      <span *ngIf="_enTitle.errors?.required">
+        Field is required
+      </span>
+      <span *ngIf="_enTitle.value.length > 40">
+        Max length is 40
+      </span>
+    </div>
   </mat-form-field>
   <br>
   <mat-form-field appearance="fill">
     <mat-label>video default description (english)</mat-label>
-    <input matInput #engDescr >
+    <input matInput type="text" formControlName="enDescription" >
+    <div *ngIf="_enDescription.invalid && (_enDescription.touched || _enDescription.dirty)">
+      <span *ngIf="_enDescription.errors?.required">
+        Field is required
+      </span>
+      <span *ngIf="_enDescription.value.length > 80">
+        Max length is 80
+      </span>
+    </div>
   </mat-form-field>
   <br>
   <mat-form-field appearance="fill">
     <mat-label>localization title (rus)</mat-label>
-    <input matInput  #rusTitle>
+    <input matInput type="text" formControlName="ruTitle">
+    <div *ngIf="_ruTitle.invalid && (_ruTitle.touched || _ruTitle.dirty)">
+      <span *ngIf="_ruTitle.errors?.required">
+        Field is required
+      </span>
+      <span *ngIf="_ruTitle.value.length > 40">
+        Max length is 40
+      </span>
+    </div>
   </mat-form-field>
   <br>
   <mat-form-field appearance="fill">
     <mat-label>localization description (rus)</mat-label>
-    <input matInput #rusDescr>
+    <input matInput  type="text" formControlName="ruDescription" >
+    <div *ngIf="_ruDescription.invalid && (_ruDescription.touched || _ruDescription.dirty)">
+      <span *ngIf="_ruDescription.errors?.required">
+        Field is required
+      </span>
+      <span *ngIf="_ruDescription.value.length > 40">
+        Max length is 80
+      </span>
+    </div>
   </mat-form-field>
+  <br>
+  <button mat-button class="mat-primary" (click)="onSubmit()">Ok</button>
 
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onSubmit(engDescr.value, engTitle.value, rusTitle.value, rusDescr.value)">Ok</button>
-  <button mat-button >Cancel</button>
-</div>
+</form>
