@@ -3,4 +3,5 @@ export interface IUpdateVideoData {
   description: string,
   rusTitle: string,
   rusDescription: string,
+  imgSource: string
 }

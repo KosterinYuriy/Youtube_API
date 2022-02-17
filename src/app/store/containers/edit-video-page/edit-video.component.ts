@@ -6,6 +6,7 @@ import {IUpdateVideoDescription} from "../../models/UpdateVideoDescription.inter
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {IGetVideoById} from "../../models/GetVideoById.interface";
 
 
 @Component({
@@ -25,6 +26,7 @@ export class EditVideoComponent implements OnInit {
     description: "test descr",
     rusTitle: "rus string",
     rusDescription: "rus string",
+    imgSource: '#'
   }
 
   private querySubscription: Subscription;
@@ -43,11 +45,13 @@ export class EditVideoComponent implements OnInit {
   }
 
   private _createForm() {
+    console.log(this.data)
+
     this.videoEditForm = this.fb.group({
       enTitle: ['', [Validators.required, Validators.maxLength(40)]],
       enDescription: ['', [Validators.required, Validators.maxLength(80)],],
-      ruTitle: ['', [Validators.required, Validators.maxLength(40)]],
-      ruDescription: [ '', [Validators.required, Validators.maxLength(80)],],
+      ruTitle: ['', [Validators.maxLength(40)]],
+      ruDescription: [ '', [ Validators.maxLength(80)],],
     })
 
   }
@@ -68,12 +72,27 @@ export class EditVideoComponent implements OnInit {
     return this.videoEditForm.get('ruDescription')!
   }
 
+
+  getVideo(): void {
+    this.youTubeService.getVideoById(this.queryId).subscribe((res: IGetVideoById)=>{
+      for (let element of res.items) {
+        this.data.title = element.snippet.title
+        this.data.description = element.snippet.description
+        this.data.rusTitle = element.localizations.ru.title
+        this.data.rusDescription = element.localizations.ru.description
+        this.data.imgSource = element.snippet.thumbnails.medium.url
+      }
+    })
+  }
+
+
+
   onSubmit(): void {
 
     const enTitle: string = this.videoEditForm.controls['enTitle'].value
     const enDescription: string = this.videoEditForm.controls['enDescription'].value
-    const ruTitle: string = this.videoEditForm.controls['ruTitle'].value
-    const ruDescription: string = this.videoEditForm.controls['ruDescription'].value
+    const ruTitle: string = this.videoEditForm.controls['ruTitle'].value ? this.videoEditForm.controls['ruTitle'].value: this.data.rusTitle
+    const ruDescription: string = this.videoEditForm.controls['ruDescription'].value ? this.videoEditForm.controls['ruDescription'].value : this.data.rusDescription
 
     this.youTubeService.updateVideoDescription( enDescription, enTitle,
       ruTitle, ruDescription, this.queryId).subscribe((res: IUpdateVideoDescription)=>{
@@ -88,6 +107,7 @@ export class EditVideoComponent implements OnInit {
 
   ngOnInit() {
     this.youTubeService.authenticate()
+    this.getVideo()
   }
 
 

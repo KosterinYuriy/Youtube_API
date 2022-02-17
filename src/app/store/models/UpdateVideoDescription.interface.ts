@@ -56,5 +56,9 @@ export interface IUpdateVideoDescription {
       "title": string,
       "description": string,
     }
+    "ru": {
+      title: string,
+      description: string
+    }
   }
 }

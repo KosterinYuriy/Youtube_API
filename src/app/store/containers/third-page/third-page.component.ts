@@ -18,7 +18,6 @@ export class ThirdPageComponent implements OnInit {
 
 
   constructor(public youTubeService: YoutubeService,
-              public matDialog: MatDialog,
               private router: Router) {
   }
 
@@ -44,15 +43,11 @@ export class ThirdPageComponent implements OnInit {
   }
 
 
-  onVideoChange(videoId: string): void {
-
-
-  }
-
   navigateOnVideoChangePage(videoId: string): void {
 
     this.router.navigateByUrl('/').then(() => {
-      this.router.navigate(['/edit_video'], {queryParams: {"&videoId=": videoId }}).then(r => {
+      this.router.navigate(['/edit_video'], {queryParams: {
+          "&videoId=": videoId}}).then(r => {
       });
     });
   }

@@ -1,3 +1,26 @@
+.container{
+  width : 35%
+}
+
 .mat-form-field{
-  min-width: 35%;
+  min-width: 100%;
+  background-color: #fdfcfc;
+}
+
+
+
+.form-video-edit {
+  background-color: #fdfcfc;
+}
+
+.optional-fields-title{
+  background-color: #fdfcfc;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 2%;
+}
+
+
+.span-required{
+  color: #f44336;;
 }

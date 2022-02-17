@@ -9,6 +9,7 @@ import {ISearchListsOfVideos} from "../models/searchListsOfVideos.interface";
 import {IVideo} from "../models/video.interface";
 import {IUpdateVideoDescription} from "../models/UpdateVideoDescription.interface";
 import {combineAll} from "rxjs/operators";
+import {IGetVideoById} from "../models/GetVideoById.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -95,6 +96,13 @@ export class YoutubeService {
     return this.http.get<ISearchListsOfVideos>(SearchUrl)
   }
 
+  getVideoById(videoId: string): Observable<IGetVideoById> {
+    let SearchUrl = this.url + '/videos' + '?part=snippet%2Clocalizations' + '&id=' + videoId + '&key=' + this.apiKey
+
+    return this.http.get<IGetVideoById>(SearchUrl)
+
+  }
+
 
   setHeaders(): HttpHeaders {
 
@@ -130,9 +138,6 @@ export class YoutubeService {
     this.updateRequestBody.localizations.ru.description =newRusDescription
 
     const headers = this.setHeaders()
-    console.log(headers)
-    console.log("token - ", this.authService.access_token)
-    console.log(this.updateRequestBody)
 
     return this.http.put<IUpdateVideoDescription>(updateVideoDescriptionUrl, this.updateRequestBody, {headers})
 

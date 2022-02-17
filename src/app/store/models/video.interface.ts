@@ -3,4 +3,10 @@ export interface IVideo {
   title: string;
   description: string;
   imgSource: string;
+  // localizations: {
+  //   ru:{
+  //     title : string
+  //     description: string
+  //   }
+  // }
 }
