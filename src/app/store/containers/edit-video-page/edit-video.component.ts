@@ -134,6 +134,15 @@ export class EditVideoComponent implements OnInit {
     })
   }
 
+  onCancel(): void {
+
+
+    this.router.navigateByUrl('/').then(() => {
+      this.router.navigate(['/third']).then(r => {
+      });
+    });
+  }
+
   ngOnInit() {
     this.youTubeService.authenticate()
     this.getVideo()
