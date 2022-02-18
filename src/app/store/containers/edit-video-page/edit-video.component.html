@@ -19,7 +19,7 @@
   <div>
     <form [formGroup]="videoEditForm" novalidate>
       <mat-form-field appearance="fill">
-        <mat-label>{{data.title}}</mat-label>
+        <mat-label>default title</mat-label>
         <input matInput type="text" formControlName="enTitle"
                (keyup)="onChange('enTitle' ,this._enTitle.value)">
         <div *ngIf="_enTitle.invalid && (_enTitle.touched || _enTitle.dirty)">
@@ -33,7 +33,7 @@
       </mat-form-field>
       <br>
       <mat-form-field appearance="fill">
-        <mat-label>{{data.description}}</mat-label>
+        <mat-label>default description</mat-label>
         <input matInput type="text" formControlName="enDescription"
                (keyup)="onChange('enDescription' ,this._enDescription.value)">
         <div *ngIf="_enDescription.invalid && (_enDescription.touched || _enDescription.dirty)">
@@ -47,7 +47,7 @@
       </mat-form-field>
       <div class="optional-fields-title">Optional Fields</div>
       <mat-form-field appearance="fill">
-        <mat-label>{{data.rusTitle}}</mat-label>
+        <mat-label>Russian title</mat-label>
         <input matInput type="text" formControlName="ruTitle"
                (keyup)="onChange('ruTitle' ,this._ruTitle.value)">
         <div *ngIf="_ruTitle.invalid && (_ruTitle.touched || _ruTitle.dirty)">
@@ -58,7 +58,7 @@
       </mat-form-field>
       <br>
       <mat-form-field appearance="fill">
-        <mat-label>{{data.rusDescription}}</mat-label>
+        <mat-label>Russian description</mat-label>
         <input matInput type="text" formControlName="ruDescription"
                (keyup)="onChange('ruDescription' ,this._ruDescription.value)">
         <div *ngIf="_ruDescription.invalid && (_ruDescription.touched || _ruDescription.dirty)">
