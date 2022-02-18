@@ -1,22 +1,6 @@
 <div class="container">
 
-
-  <mat-card class="example-card">
-    <mat-card-header>
-      <mat-card-title>{{data.title | cutText:40}}</mat-card-title>
-    </mat-card-header>
-    <img [src]="data.imgSource" class="card-img-top contain" alt="...">
-    <mat-card-content>
-      <div class="description">{{data.description | cutText: 80}}</div>
-    </mat-card-content>
-    <mat-card-actions>
-      <mat-card-title>{{data.rusTitle | cutText:40}}</mat-card-title>
-      <div class="description">{{data.rusDescription | cutText: 80}}</div>
-    </mat-card-actions>
-  </mat-card>
-  <br>
-
-  <div>
+  <div class="form-field">
     <form [formGroup]="videoEditForm" novalidate>
       <mat-form-field appearance="fill">
         <mat-label>default title</mat-label>
@@ -67,11 +51,26 @@
       </span>
         </div>
       </mat-form-field>
-      <br>
-      <br>
-      <button mat-raised-button color="primary" (click)="onSubmit()"> Save</button>
-      <button mat-raised-button color="accent" (click)="onCancel()"> Cancel</button>
     </form>
   </div>
+  <div class="preview">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>{{data.title | cutText:40}}</mat-card-title>
+      </mat-card-header>
+      <img [src]="data.imgSource" class="card-img-top contain" alt="...">
+      <mat-card-content>
+        <div class="description">{{data.description | cutText: 80}}</div>
+      </mat-card-content>
+      <mat-card-actions>
+        <mat-card-title>{{data.rusTitle | cutText:40}}</mat-card-title>
+        <div class="description">{{data.rusDescription | cutText: 80}}</div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+<div class="footer">
+  <button mat-raised-button color="primary" (click)="onSubmit()"> Save</button>
+  <button mat-raised-button color="accent" (click)="onCancel()"> Cancel</button>
 </div>
 
