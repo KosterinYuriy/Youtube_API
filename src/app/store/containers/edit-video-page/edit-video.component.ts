@@ -93,27 +93,6 @@ export class EditVideoComponent implements OnInit {
     })
   }
 
-  onChange(field: string, value: string): void {
-    switch (field) {
-      case 'enTitle': {
-        this.data.title = value
-        break
-      }
-      case 'enDescription': {
-        this.data.description = value
-        break
-      }
-      case 'ruTitle': {
-        this.data.rusTitle = value
-        break
-      }
-      case 'ruDescription': {
-        this.data.rusDescription = value
-        break
-      }
-    }
-  }
-
   onSubmit(): void {
 
     console.log('submitted')
