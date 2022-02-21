@@ -15,11 +15,13 @@ export class FirstPageComponent implements OnInit {
 
   public videos: IVideo[] = [];
 
+
   constructor(public youTubeService: YoutubeService) {
   }
 
 
-  ngOnInit() {
+  getVideos(): void {
+    this.videos = []
     this.youTubeService.getVideosForChanel('UCW5YeuERMmlnqo4oq8vwUpg', 15).subscribe((lists: IListsOfVideos) => {
       for (let element of lists.items) {
         let res: IVideo = {
@@ -30,8 +32,13 @@ export class FirstPageComponent implements OnInit {
         }
         this.videos.push(res)
       }
-
     })
+  }
+
+
+  ngOnInit() {
+    this.youTubeService.authenticate()
+    this.getVideos()
   }
 
 

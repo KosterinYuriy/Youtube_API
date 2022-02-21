@@ -16,7 +16,6 @@ import {Router} from "@angular/router";
 export class BoardComponent implements OnInit {
 
 
-
   constructor(public authService: AuthService,
               private youtubeService: YoutubeService,
               private router: Router) { }
