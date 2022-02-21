@@ -1,6 +1,6 @@
 <div class="container">
 
-  <div class="form-field">
+  <div class="form_field">
     <form [formGroup]="videoEditForm" novalidate>
       <mat-form-field appearance="fill">
         <mat-label>default title</mat-label>
@@ -9,7 +9,7 @@
       <span *ngIf="_enTitle.errors?.required" class="span-required">
         Field is required
       </span>
-          <span *ngIf="_enTitle.value.length > 40">
+          <span *ngIf="_enTitle.value.length > 40" class="span-required">
         Max length is 40
       </span>
         </div>
@@ -42,7 +42,7 @@
         <mat-label>Russian description</mat-label>
         <input matInput type="text" formControlName="ruDescription">
         <div *ngIf="_ruDescription.invalid && (_ruDescription.touched || _ruDescription.dirty)">
-      <span *ngIf="_ruDescription.value.length > 40" class>
+      <span *ngIf="_ruDescription.value.length > 40" class="span-required">
         Max length is 80
       </span>
         </div>
@@ -64,9 +64,13 @@
       </mat-card-actions>
     </mat-card>
   </div>
+
+
+  <div class="footer">
+    <button mat-raised-button color="primary" class="ok" (click)="onSubmit()"> Save</button>
+    <button mat-raised-button color="accent" class="cancel" (click)="onCancel()"> Cancel</button>
+  </div>
+
 </div>
-<div class="footer">
-  <button mat-raised-button color="primary" (click)="onSubmit()"> Save</button>
-  <button mat-raised-button color="accent" (click)="onCancel()"> Cancel</button>
-</div>
+
 
