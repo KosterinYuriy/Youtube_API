@@ -1,50 +1,63 @@
 <div class="container">
-
   <div class="form_field">
     <form [formGroup]="videoEditForm" novalidate>
       <mat-form-field appearance="fill">
         <mat-label>default title</mat-label>
-        <input matInput type="text" formControlName="enTitle" >
-        <div *ngIf="_enTitle.invalid && (_enTitle.touched || _enTitle.dirty)">
-      <span *ngIf="_enTitle.errors?.required" class="span-required">
-        Field is required
-      </span>
-          <span *ngIf="_enTitle.value.length > 40" class="span-required">
-        Max length is 40
-      </span>
+        <input matInput type="text" formControlName="enTitle" />
+        <div
+          *ngIf="_enTitle?.invalid && (_enTitle?.touched || _enTitle?.dirty)"
+        >
+          <span *ngIf="_enTitle?.errors?.required" class="span-required">
+            Field is required
+          </span>
+          <span *ngIf="_enTitle?.value.length > 40" class="span-required">
+            Max length is 40
+          </span>
         </div>
       </mat-form-field>
-      <br>
+      <br />
       <mat-form-field appearance="fill">
         <mat-label>default description</mat-label>
-        <input matInput type="text" formControlName="enDescription">
-        <div *ngIf="_enDescription.invalid && (_enDescription.touched || _enDescription.dirty)">
-      <span *ngIf="_enDescription.errors?.required" class="span-required">
-        Field is required
-      </span>
-          <span *ngIf="_enDescription.value.length > 80" class="span-required">
-        Max length is 80
-      </span>
+        <input matInput type="text" formControlName="enDescription" />
+        <div
+          *ngIf="
+            _enDescription?.invalid &&
+            (_enDescription?.touched || _enDescription?.dirty)
+          "
+        >
+          <span *ngIf="_enDescription?.errors?.required" class="span-required">
+            Field is required
+          </span>
+          <span *ngIf="_enDescription?.value.length > 80" class="span-required">
+            Max length is 80
+          </span>
         </div>
       </mat-form-field>
       <div class="optional-fields-title">Optional Fields</div>
       <mat-form-field appearance="fill">
         <mat-label>Russian title</mat-label>
-        <input matInput type="text" formControlName="ruTitle" >
-        <div *ngIf="_ruTitle.invalid && (_ruTitle.touched || _ruTitle.dirty)">
-      <span *ngIf="_ruTitle.value.length > 40" class="span-required">
-        Max length is 40
-      </span>
+        <input matInput type="text" formControlName="ruTitle" />
+        <div
+          *ngIf="_ruTitle?.invalid && (_ruTitle?.touched || _ruTitle?.dirty)"
+        >
+          <span *ngIf="_ruTitle?.value.length > 40" class="span-required">
+            Max length is 40
+          </span>
         </div>
       </mat-form-field>
-      <br>
+      <br />
       <mat-form-field appearance="fill">
         <mat-label>Russian description</mat-label>
-        <input matInput type="text" formControlName="ruDescription">
-        <div *ngIf="_ruDescription.invalid && (_ruDescription.touched || _ruDescription.dirty)">
-      <span *ngIf="_ruDescription.value.length > 40" class="span-required">
-        Max length is 80
-      </span>
+        <input matInput type="text" formControlName="ruDescription" />
+        <div
+          *ngIf="
+            _ruDescription?.invalid &&
+            (_ruDescription?.touched || _ruDescription?.dirty)
+          "
+        >
+          <span *ngIf="_ruDescription?.value.length > 40" class="span-required">
+            Max length is 80
+          </span>
         </div>
       </mat-form-field>
     </form>
@@ -52,25 +65,30 @@
   <div class="preview">
     <mat-card class="example-card">
       <mat-card-header>
-        <mat-card-title>{{_enTitle.value | cutText:40}}</mat-card-title>
+        <mat-card-title>{{ _enTitle?.value | cutText: 40 }}</mat-card-title>
       </mat-card-header>
-      <img [src]="data.imgSource" class="card-img-top contain" alt="...">
+      <img [src]="data.imgSource" class="card-img-top contain" alt="..." />
       <mat-card-content>
-        <div class="description">{{_enDescription.value | cutText: 80}}</div>
+        <div class="description">{{ _enDescription?.value | cutText: 80 }}</div>
       </mat-card-content>
       <mat-card-actions>
-        <mat-card-title>{{_ruTitle.value | cutText:40}}</mat-card-title>
-        <div class="description">{{_ruDescription.value | cutText: 80}}</div>
+        <mat-card-title>{{ _ruTitle?.value | cutText: 40 }}</mat-card-title>
+        <div class="description">{{ _ruDescription?.value | cutText: 80 }}</div>
       </mat-card-actions>
     </mat-card>
   </div>
 
-
   <div class="footer">
-    <button mat-raised-button color="primary" class="ok" (click)="onSubmit()"> Save</button>
-    <button mat-raised-button color="accent" class="cancel" (click)="onCancel()"> Cancel</button>
+    <button mat-raised-button color="primary" class="ok" (click)="onSubmit()">
+      Save
+    </button>
+    <button
+      mat-raised-button
+      color="accent"
+      class="cancel"
+      (click)="onCancel()"
+    >
+      Cancel
+    </button>
   </div>
-
 </div>
-
-

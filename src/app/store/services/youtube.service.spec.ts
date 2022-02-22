@@ -1,23 +1,24 @@
 import { TestBed } from '@angular/core/testing';
 import { YoutubeService } from './youtube.service';
-import {HttpClientModule} from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
 import {
   HttpClientTestingModule,
-  HttpTestingController
+  HttpTestingController,
+} from '@angular/common/http/testing';
 
-} from "@angular/common/http/testing";
-
-import mockVideos from "../../../mocks/mockVideos";
-
+import mockVideos from '../../../mocks/mockVideos';
 
 describe('YoutubeService', () => {
   let service: YoutubeService;
   let httpController: HttpTestingController;
   const maxResults = 15;
-  let fullUrl = 'https://www.googleapis.com/youtube/v3/search?key=' +
-    'AIzaSyBz1PwR8Q1abz_NIeQ0yg1rWNhK6Mmf9yw' + '&channelId=' +
-    "UCW5YeuERMmlnqo4oq8vwUpg" +
-    '&order=date&part=snippet &type=video,id&maxResults=' + maxResults
+  const fullUrl =
+    'https://www.googleapis.com/youtube/v3/search?key=' +
+    'AIzaSyBz1PwR8Q1abz_NIeQ0yg1rWNhK6Mmf9yw' +
+    '&channelId=' +
+    'UCW5YeuERMmlnqo4oq8vwUpg' +
+    '&order=date&part=snippet &type=video,id&maxResults=' +
+    maxResults;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -27,12 +28,13 @@ describe('YoutubeService', () => {
     httpController = TestBed.inject(HttpTestingController);
   });
 
-
   it('should call getVideos and return an array of Videos', () => {
-    service.getVideosForChanel("UCW5YeuERMmlnqo4oq8vwUpg", maxResults).subscribe((res) => {
-      req.flush(mockVideos);
-      expect(res.items).toEqual(mockVideos);
-    });
+    service
+      .getVideosForChanel('UCW5YeuERMmlnqo4oq8vwUpg', maxResults)
+      .subscribe((res) => {
+        req.flush(mockVideos);
+        expect(res.items).toEqual(mockVideos);
+      });
 
     const req = httpController.expectOne({
       method: 'GET',
@@ -41,16 +43,13 @@ describe('YoutubeService', () => {
   });
 });
 
-
 describe('YoutubeService2', () => {
   let service: YoutubeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule],
-      providers: [
-        YoutubeService,
-      ]
+      providers: [YoutubeService],
     });
     service = TestBed.inject(YoutubeService);
   });
@@ -58,6 +57,4 @@ describe('YoutubeService2', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
-
-
 });
