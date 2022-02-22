@@ -8,7 +8,6 @@ import {AuthService} from "./auth.service";
 import {ISearchListsOfVideos} from "../models/searchListsOfVideos.interface";
 import {IVideo} from "../models/video.interface";
 import {IUpdateVideoDescription} from "../models/UpdateVideoDescription.interface";
-import {combineAll} from "rxjs/operators";
 import {IGetVideoById} from "../models/GetVideoById.interface";
 
 @Injectable({
@@ -59,6 +58,8 @@ export class YoutubeService {
       }
     }
   }
+
+
 
 
 
@@ -140,6 +141,28 @@ export class YoutubeService {
     const headers = this.setHeaders()
 
     return this.http.put<IUpdateVideoDescription>(updateVideoDescriptionUrl, this.updateRequestBody, {headers})
+
+  }
+
+  addVideoForChannel(newVideoDescription: string, newVideoTitle: string): Observable<object>{
+    let addVideoUrl = this.url + '/videos' + '?part=snippet%2Cstatus'
+
+    const headers = this.setHeaders()
+
+    let postRequestBody = {
+      "snippet": {
+        "categoryId": "22",
+        "description": newVideoDescription,
+        "title": newVideoTitle
+      },
+      "status": {
+        "privacyStatus": "public"
+      }
+    }
+
+    return this.http.post<object>(addVideoUrl, postRequestBody, {headers} )
+
+
 
   }
 

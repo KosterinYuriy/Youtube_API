@@ -94,7 +94,6 @@ export class EditVideoComponent implements OnInit {
   }
 
   onSubmit(): void {
-
     console.log('submitted')
     const enTitle: string = this.videoEditForm.controls['enTitle'].value
     const enDescription: string = this.videoEditForm.controls['enDescription'].value
@@ -103,14 +102,23 @@ export class EditVideoComponent implements OnInit {
     const ruDescription: string = this.videoEditForm.controls['ruDescription'].value
       ? this.videoEditForm.controls['ruDescription'].value : this.data.rusDescription
 
-    this.youTubeService.updateVideoDescription(enDescription, enTitle,
-      ruTitle, ruDescription, this.queryId).subscribe((res: IUpdateVideoDescription) => {
+    if (this.queryId === 'adding_new_video' ) {
+      this.youTubeService.addVideoForChannel(enDescription, enTitle).subscribe((res) => {
+        console.log(res)
+      })
+    }
+      else {
+      this.youTubeService.updateVideoDescription(enDescription, enTitle,
+        ruTitle, ruDescription, this.queryId).subscribe((res: IUpdateVideoDescription) => {
 
-      this.router.navigateByUrl('/').then(() => {
-        this.router.navigate(['/third']).then(r => {
+        this.router.navigateByUrl('/').then(() => {
+          this.router.navigate(['/third']).then(r => {
+          });
         });
-      });
-    })
+      })
+      }
+
+
   }
 
   onCancel(): void {
