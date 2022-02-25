@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IListsOfVideos } from '../models/listsOfVideos.interface';
 import { IRequestBody } from '../models/IRequestBody';
 import { IUpdateChannelDescription } from '../models/UpdateChannelDescription.interface';

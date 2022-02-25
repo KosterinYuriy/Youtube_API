@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { YoutubeService } from './youtube.service';
-import { HttpClientModule } from '@angular/common/http';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
 
 import mockVideos from '../../../mocks/mockVideos';
+import { Router } from '@angular/router';
+import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
+
+const RouterSpy = jasmine.createSpyObj('Router', ['navigate']);
 
 describe('YoutubeService', () => {
   let service: YoutubeService;
@@ -22,6 +25,27 @@ describe('YoutubeService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      providers: [
+        SocialAuthService,
+        {
+          provide: Router,
+          useValue: RouterSpy,
+        },
+        {
+          provide: 'SocialAuthServiceConfig',
+          useValue: {
+            autoLogin: true,
+            providers: [
+              {
+                id: GoogleLoginProvider.PROVIDER_ID,
+                provider: new GoogleLoginProvider(
+                  '972008513630-7avvlobhv10on2p03ibejru0vqlhgk9t.apps.googleusercontent.com'
+                ),
+              },
+            ],
+          },
+        },
+      ],
       imports: [HttpClientTestingModule],
     });
     service = TestBed.inject(YoutubeService);
@@ -43,13 +67,33 @@ describe('YoutubeService', () => {
   });
 });
 
-describe('YoutubeService2', () => {
+describe('YoutubeService should create', () => {
   let service: YoutubeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule],
-      providers: [YoutubeService],
+      providers: [
+        SocialAuthService,
+        {
+          provide: Router,
+          useValue: RouterSpy,
+        },
+        {
+          provide: 'SocialAuthServiceConfig',
+          useValue: {
+            autoLogin: true,
+            providers: [
+              {
+                id: GoogleLoginProvider.PROVIDER_ID,
+                provider: new GoogleLoginProvider(
+                  '972008513630-7avvlobhv10on2p03ibejru0vqlhgk9t.apps.googleusercontent.com'
+                ),
+              },
+            ],
+          },
+        },
+      ],
+      imports: [HttpClientTestingModule],
     });
     service = TestBed.inject(YoutubeService);
   });
