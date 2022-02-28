@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
@@ -7,9 +7,7 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
+      declarations: [AppComponent],
     }).compileComponents();
   });
 
@@ -19,16 +17,11 @@ describe('AppComponent', () => {
     fixture.detectChanges();
   });
 
-
   it('should create the app', () => {
     expect(app).toBeTruthy();
   });
 
   it(`should have as title 'QualifyingWork'`, () => {
     expect(app.title).toEqual('QualifyingWork');
-  });
-
-  it('should render title', () => {
-    fixture.detectChanges();
   });
 });
