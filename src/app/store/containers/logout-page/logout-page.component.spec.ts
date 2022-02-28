@@ -1,9 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { LogoutPageComponent } from './logout-page.component';
 import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
-import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 
 describe('LogoutPageComponent (minimal)', () => {

@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -10,7 +10,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 import { AppComponent } from './app.component';
-import { BoardComponent } from './components/board/board.component';
 
 import { ThirdPageComponent } from './store/containers/third-page/third-page.component';
 import { FourthPageComponent } from './store/containers/fourth-page/fourth-page.component';
@@ -96,7 +95,6 @@ import { EditVideoComponent } from './store/containers/edit-video-page/edit-vide
 
   declarations: [
     AppComponent,
-    BoardComponent,
     SecondPageComponent,
     ThirdPageComponent,
     FourthPageComponent,

@@ -1,15 +1,15 @@
 {
-  "name": "qualifying-work-nc",
+  "name": "qualifying-work",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "ng test --watch=false",
     "lint": "ng lint",
     "pre-commit": "pretty-quick --staged && ng lint",
-    "pre-push": "npm run test",
+    "pre-push": "npm run test --watch=false",
     "prepare": "husky install"
   },
   "private": true,

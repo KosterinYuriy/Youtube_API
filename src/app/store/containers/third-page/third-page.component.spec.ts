@@ -1,8 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ThirdPageComponent } from './third-page.component';
-import { of } from 'rxjs';
-import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { YoutubeService } from '../../services/youtube.service';
 import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
