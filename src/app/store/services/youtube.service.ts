@@ -78,7 +78,6 @@ export class YoutubeService {
       channel +
       '&order=date&part=snippet &type=video,id&maxResults=' +
       maxResults;
-
     return this.http.get<IListsOfVideos>(SearchUrl);
   }
 
