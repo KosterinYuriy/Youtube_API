@@ -34,7 +34,7 @@ import { MatCardModule } from '@angular/material/card';
 import { CutTextPipe } from './pipes/cutText.pipe';
 import { UpdateVideoDataComponent } from './components/angular-material-modal/updateVideoData/angular-modal-video-dialog';
 import { EditVideoComponent } from './store/containers/edit-video-page/edit-video.component';
-import { AngularConfirmingModal } from './components/angular-material-modal/confirmingDialog/angular-confirming-modal';
+import { AngularConfirmingModalComponent } from './components/angular-material-modal/confirmingDialog/angular-confirming-modal.component';
 
 @NgModule({
   imports: [
@@ -104,7 +104,7 @@ import { AngularConfirmingModal } from './components/angular-material-modal/conf
     FirstPageComponent,
     LoginPageComponent,
     EditVideoComponent,
-    AngularConfirmingModal,
+    AngularConfirmingModalComponent,
     UpdateChannelDescriptionFormComponent,
     UpdateVideoDataComponent,
     CutTextPipe,

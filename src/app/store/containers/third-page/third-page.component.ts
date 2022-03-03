@@ -4,7 +4,7 @@ import { IVideo } from '../../models/video.interface';
 import { IListsOfVideos } from '../../models/listsOfVideos.interface';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { AngularConfirmingModal } from '../../../components/angular-material-modal/confirmingDialog/angular-confirming-modal';
+import { AngularConfirmingModalComponent } from '../../../components/angular-material-modal/confirmingDialog/angular-confirming-modal.component';
 
 @Component({
   selector: 'app-third-page',
@@ -54,7 +54,7 @@ export class ThirdPageComponent implements OnInit {
   }
 
   openDialogOnDelete(videoId: string): void {
-    const dialogRef = this.dialog.open(AngularConfirmingModal);
+    const dialogRef = this.dialog.open(AngularConfirmingModalComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === false) {

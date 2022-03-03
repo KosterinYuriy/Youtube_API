@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'angular-confirming-modal',
-  templateUrl: 'angular-confirming-modal.html',
+  templateUrl: 'angular-confirming-modal.component.html',
 })
-export class AngularConfirmingModal {
+export class AngularConfirmingModalComponent {
   constructor(public youTubeService: YoutubeService) {}
 
   onDelete(): void {}
