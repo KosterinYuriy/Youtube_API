@@ -1,32 +1,40 @@
 .scrollable-area {
-
   flex-wrap: wrap;
   display: grid;
   grid-template-columns: 20% 20% 20% 20%;
 
   justify-content: space-evenly;
   justify-self: center;
-
-
 }
 
 body {
   background-color: #eee;
-  font-family: 'helvetica neue', helvetica, arial, sans-serif;
+  font-family: "helvetica neue", helvetica, arial, sans-serif;
   color: #222;
 }
 
-.example-card{
+.example-card {
   margin-top: 16%;
   height: 80%;
   width: 100%;
 }
 
-.contain{
+.contain {
   height: 50%;
   width: 100%;
   object-fit: contain;
 }
 
+.mat-card-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.mat-icon {
+  margin: 4%;
+}
 
+.add_card {
+}

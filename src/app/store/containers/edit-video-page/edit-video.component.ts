@@ -102,7 +102,7 @@ export class EditVideoComponent implements OnInit {
       : this.data.rusDescription;
 
     if (this.queryId === 'adding_new_video') {
-      if (this.selectedFile == undefined) {
+      if (this.selectedFile === undefined) {
         console.log('error, no video provided');
       } else {
         this.youTubeService

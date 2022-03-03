@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { observable, Observable } from 'rxjs';
 import { IListsOfVideos } from '../models/listsOfVideos.interface';
 import { IRequestBody } from '../models/IRequestBody';
 import { IUpdateChannelDescription } from '../models/UpdateChannelDescription.interface';
@@ -167,14 +167,27 @@ export class YoutubeService {
     }
   }
 
+  deleteVideo(videoId: string): void {
+    const deleteUrl = this.url + '/videos?id=' + videoId;
+
+    const headers = this.setHeaders();
+
+    this.http.delete(deleteUrl, { headers }).subscribe((res) => {
+      console.log(res);
+    });
+  }
+
   addVideoForChannel(
     newVideoDescription: string,
     newVideoTitle: string,
     videoFile: File
   ): Observable<object> {
-    const addVideoUrl = this.url + '/videos' + '?part=snippet%2Cstatus';
+    const addVideoUrl =
+      this.url + '/videos' + '?part=snippet%2Cstatus' + '&key=' + this.apiKey;
 
     const headers = this.setHeaders();
+
+    //todo
 
     const postRequestBody = {
       snippet: {
@@ -187,9 +200,18 @@ export class YoutubeService {
       },
     };
 
-    return this.http.post<object>(addVideoUrl, postRequestBody, {
-      headers,
-      reportProgress: true,
-    });
+    const postRequestTwo = {
+      snippet: {
+        categoryId: '22',
+        description: 'Description of uploaded video.',
+        title: 'Test video upload.',
+      },
+      status: {
+        privacyStatus: 'private',
+      },
+    };
+    return new Observable<object>();
+    //return this.http.post<object>(addVideoUrl, postRequestBody, { headers, reportProgress: true,});
+    //return this.http.post<object>(addVideoUrl, postRequestBody, { headers, reportProgress: true,});
   }
 }
