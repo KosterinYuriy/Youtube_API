@@ -3,7 +3,7 @@ import { YoutubeService } from '../../services/youtube.service';
 import { IUpdateVideoData } from '../../models/UpdateVideoData.interface';
 import { IUpdateVideoDescription } from '../../models/UpdateVideoDescription.interface';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Event, Params, Router } from '@angular/router';
 import {
   AbstractControl,
   FormBuilder,
@@ -11,6 +11,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { IGetVideoById } from '../../models/GetVideoById.interface';
+import { ISelectedFile } from '../../models/SelectedFile.interface';
 
 @Component({
   selector: 'app-edit-video',
@@ -20,6 +21,8 @@ import { IGetVideoById } from '../../models/GetVideoById.interface';
 export class EditVideoComponent implements OnInit {
   queryId!: string;
   videoEditForm: FormGroup = new FormGroup({});
+  selectedFile!: File;
+  selectedImage: File | null = null;
 
   public data: IUpdateVideoData = {
     title: 'test title',
@@ -99,11 +102,15 @@ export class EditVideoComponent implements OnInit {
       : this.data.rusDescription;
 
     if (this.queryId === 'adding_new_video') {
-      this.youTubeService
-        .addVideoForChannel(enDescription, enTitle)
-        .subscribe((res) => {
-          console.log(res);
-        });
+      if (this.selectedFile == undefined) {
+        console.log('error, no video provided');
+      } else {
+        this.youTubeService
+          .addVideoForChannel(enDescription, enTitle, this.selectedFile)
+          .subscribe((res) => {
+            console.log(res);
+          });
+      }
     } else {
       this.youTubeService
         .updateVideoDescription(
@@ -125,6 +132,15 @@ export class EditVideoComponent implements OnInit {
     this.router.navigateByUrl('/').then(() => {
       this.router.navigate(['/third']).then((r) => {});
     });
+  }
+
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+    console.log(this.selectedFile);
+  }
+
+  onUpload(event: any): void {
+    console.log(event[0]);
   }
 
   ngOnInit() {

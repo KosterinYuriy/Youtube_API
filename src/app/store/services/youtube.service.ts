@@ -35,7 +35,7 @@ export class YoutubeService {
   updateRequestBody: any = {
     id: 'tfYipikLWDo',
     snippet: {
-      categoryId: 22,
+      categoryId: '22',
       defaultLanguage: 'en',
       description: 'Custom Description',
       tags: ['new tags'],
@@ -47,8 +47,8 @@ export class YoutubeService {
         description: 'Esta descripcion es en español.',
       },
       ru: {
-        title: 'Русский текст',
-        description: 'Русский текст',
+        title: '',
+        description: '',
       },
     },
   };
@@ -138,30 +138,39 @@ export class YoutubeService {
   updateVideoDescription(
     newVideoDescription: string,
     newVideoTitle: string,
-    newRusTitle: string,
-    newRusDescription: string,
-    videoId: string
+    videoId: string,
+    newRusTitle?: string,
+    newRusDescription?: string
   ): Observable<IUpdateVideoDescription> {
     const updateVideoDescriptionUrl =
       this.url + '/videos' + '?part=snippet%2Clocalizations';
     this.updateRequestBody.id = videoId;
     this.updateRequestBody.snippet.title = newVideoTitle;
     this.updateRequestBody.snippet.description = newVideoDescription;
-    this.updateRequestBody.localizations.ru.title = newRusTitle;
-    this.updateRequestBody.localizations.ru.description = newRusDescription;
-
     const headers = this.setHeaders();
 
-    return this.http.put<IUpdateVideoDescription>(
-      updateVideoDescriptionUrl,
-      this.updateRequestBody,
-      { headers }
-    );
+    if (newRusTitle === undefined || newRusDescription === undefined) {
+      return this.http.put<IUpdateVideoDescription>(
+        updateVideoDescriptionUrl,
+        this.updateRequestBody,
+        { headers }
+      );
+    } else {
+      this.updateRequestBody.localizations.ru.title = newRusTitle;
+      this.updateRequestBody.localizations.ru.description = newRusDescription;
+
+      return this.http.put<IUpdateVideoDescription>(
+        updateVideoDescriptionUrl,
+        this.updateRequestBody,
+        { headers }
+      );
+    }
   }
 
   addVideoForChannel(
     newVideoDescription: string,
-    newVideoTitle: string
+    newVideoTitle: string,
+    videoFile: File
   ): Observable<object> {
     const addVideoUrl = this.url + '/videos' + '?part=snippet%2Cstatus';
 
@@ -170,14 +179,17 @@ export class YoutubeService {
     const postRequestBody = {
       snippet: {
         categoryId: '22',
-        description: newVideoDescription,
-        title: newVideoTitle,
+        description: 'newVideoDescription',
+        title: 'newVideoTitle',
       },
       status: {
-        privacyStatus: 'public',
+        privacyStatus: 'private',
       },
     };
 
-    return this.http.post<object>(addVideoUrl, postRequestBody, { headers });
+    return this.http.post<object>(addVideoUrl, postRequestBody, {
+      headers,
+      reportProgress: true,
+    });
   }
 }

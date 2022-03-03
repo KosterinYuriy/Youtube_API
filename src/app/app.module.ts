@@ -91,6 +91,7 @@ import { EditVideoComponent } from './store/containers/edit-video-page/edit-vide
     MatMenuModule,
     MatDialogModule,
     MatCardModule,
+    RouterModule,
   ],
 
   declarations: [
