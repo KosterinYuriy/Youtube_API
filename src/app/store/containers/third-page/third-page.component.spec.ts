@@ -6,6 +6,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { YoutubeService } from '../../services/youtube.service';
 import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
 import { HttpClientModule } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
 
 describe('ThirdPageComponent (minimal)', () => {
   let component: ThirdPageComponent;
@@ -40,7 +41,7 @@ describe('ThirdPageComponent (minimal)', () => {
             },
           },
         ],
-        imports: [HttpClientModule],
+        imports: [HttpClientModule, MatDialog],
       }).compileComponents();
     })
   );

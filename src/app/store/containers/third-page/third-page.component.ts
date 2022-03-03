@@ -3,6 +3,8 @@ import { YoutubeService } from '../../services/youtube.service';
 import { IVideo } from '../../models/video.interface';
 import { IListsOfVideos } from '../../models/listsOfVideos.interface';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { AngularConfirmingModalComponent } from '../../../components/angular-material-modal/confirmingDialog/angular-confirming-modal.component';
 
 @Component({
   selector: 'app-third-page',
@@ -12,7 +14,11 @@ import { Router } from '@angular/router';
 export class ThirdPageComponent implements OnInit {
   public myVideos: IVideo[] = [];
 
-  constructor(public youTubeService: YoutubeService, private router: Router) {}
+  constructor(
+    public youTubeService: YoutubeService,
+    private router: Router,
+    public dialog: MatDialog
+  ) {}
 
   getMyVideos(): void {
     this.myVideos = [];
@@ -29,6 +35,34 @@ export class ThirdPageComponent implements OnInit {
           this.myVideos.push(res);
         }
       });
+  }
+  getMyVideos2(): void {
+    this.myVideos = [];
+
+    for (let i = 0; i < 5; i += 1) {
+      const res: IVideo = {
+        videoId: 'videoId' + i,
+        imgSource: 'imgSource' + i,
+        title: 'title' + i,
+        description:
+          'description description description description description description description description' +
+          i,
+      };
+      this.myVideos.push(res);
+    }
+    console.log(this.myVideos);
+  }
+
+  openDialogOnDelete(videoId: string): void {
+    const dialogRef = this.dialog.open(AngularConfirmingModalComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === false) {
+        console.log('deleting canceled');
+      } else {
+        this.youTubeService.deleteVideo(videoId);
+      }
+    });
   }
 
   ngOnInit(): void {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { observable, Observable } from 'rxjs';
 import { IListsOfVideos } from '../models/listsOfVideos.interface';
 import { IRequestBody } from '../models/IRequestBody';
 import { IUpdateChannelDescription } from '../models/UpdateChannelDescription.interface';
@@ -35,7 +35,7 @@ export class YoutubeService {
   updateRequestBody: any = {
     id: 'tfYipikLWDo',
     snippet: {
-      categoryId: 22,
+      categoryId: '22',
       defaultLanguage: 'en',
       description: 'Custom Description',
       tags: ['new tags'],
@@ -47,8 +47,8 @@ export class YoutubeService {
         description: 'Esta descripcion es en español.',
       },
       ru: {
-        title: 'Русский текст',
-        description: 'Русский текст',
+        title: '',
+        description: '',
       },
     },
   };
@@ -138,46 +138,80 @@ export class YoutubeService {
   updateVideoDescription(
     newVideoDescription: string,
     newVideoTitle: string,
-    newRusTitle: string,
-    newRusDescription: string,
-    videoId: string
+    videoId: string,
+    newRusTitle?: string,
+    newRusDescription?: string
   ): Observable<IUpdateVideoDescription> {
     const updateVideoDescriptionUrl =
       this.url + '/videos' + '?part=snippet%2Clocalizations';
     this.updateRequestBody.id = videoId;
     this.updateRequestBody.snippet.title = newVideoTitle;
     this.updateRequestBody.snippet.description = newVideoDescription;
-    this.updateRequestBody.localizations.ru.title = newRusTitle;
-    this.updateRequestBody.localizations.ru.description = newRusDescription;
+    const headers = this.setHeaders();
+
+    if (newRusTitle === undefined || newRusDescription === undefined) {
+      return this.http.put<IUpdateVideoDescription>(
+        updateVideoDescriptionUrl,
+        this.updateRequestBody,
+        { headers }
+      );
+    } else {
+      this.updateRequestBody.localizations.ru.title = newRusTitle;
+      this.updateRequestBody.localizations.ru.description = newRusDescription;
+
+      return this.http.put<IUpdateVideoDescription>(
+        updateVideoDescriptionUrl,
+        this.updateRequestBody,
+        { headers }
+      );
+    }
+  }
+
+  deleteVideo(videoId: string): void {
+    const deleteUrl = this.url + '/videos?id=' + videoId;
 
     const headers = this.setHeaders();
 
-    return this.http.put<IUpdateVideoDescription>(
-      updateVideoDescriptionUrl,
-      this.updateRequestBody,
-      { headers }
-    );
+    this.http.delete(deleteUrl, { headers }).subscribe((res) => {
+      console.log(res);
+    });
   }
 
   addVideoForChannel(
     newVideoDescription: string,
-    newVideoTitle: string
+    newVideoTitle: string,
+    videoFile: File
   ): Observable<object> {
-    const addVideoUrl = this.url + '/videos' + '?part=snippet%2Cstatus';
+    const addVideoUrl =
+      this.url + '/videos' + '?part=snippet%2Cstatus' + '&key=' + this.apiKey;
 
     const headers = this.setHeaders();
+
+    //todo
 
     const postRequestBody = {
       snippet: {
         categoryId: '22',
-        description: newVideoDescription,
-        title: newVideoTitle,
+        description: 'newVideoDescription',
+        title: 'newVideoTitle',
       },
       status: {
-        privacyStatus: 'public',
+        privacyStatus: 'private',
       },
     };
 
-    return this.http.post<object>(addVideoUrl, postRequestBody, { headers });
+    const postRequestTwo = {
+      snippet: {
+        categoryId: '22',
+        description: 'Description of uploaded video.',
+        title: 'Test video upload.',
+      },
+      status: {
+        privacyStatus: 'private',
+      },
+    };
+    return new Observable<object>();
+    //return this.http.post<object>(addVideoUrl, postRequestBody, { headers, reportProgress: true,});
+    //return this.http.post<object>(addVideoUrl, postRequestBody, { headers, reportProgress: true,});
   }
 }

@@ -90,5 +90,17 @@
     >
       Cancel
     </button>
+    <div *ngIf="this.queryId === 'adding_new_video'">
+      <button type="button" mat-raised-button (click)="fileInput.click()">
+        Choose File
+      </button>
+      <input
+        hidden
+        (change)="onFileSelected($event)"
+        #fileInput
+        type="file"
+        id="file"
+      />
+    </div>
   </div>
 </div>
