@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { YoutubeService } from '../../services/youtube.service';
 import { IUpdateVideoData } from '../../models/UpdateVideoData.interface';
 import { IUpdateVideoDescription } from '../../models/UpdateVideoDescription.interface';
-import { Subscription } from 'rxjs';
+import { Observable, Subscriber, Subscription } from 'rxjs';
 import { ActivatedRoute, Event, Params, Router } from '@angular/router';
 import {
   AbstractControl,
@@ -11,7 +11,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { IGetVideoById } from '../../models/GetVideoById.interface';
-import { ISelectedFile } from '../../models/SelectedFile.interface';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-video',
@@ -21,15 +21,15 @@ import { ISelectedFile } from '../../models/SelectedFile.interface';
 export class EditVideoComponent implements OnInit {
   queryId!: string;
   videoEditForm: FormGroup = new FormGroup({});
-  selectedFile!: File;
-  selectedImage: File | null = null;
+
+  selectedFile: string = 'placeholder';
 
   public data: IUpdateVideoData = {
     title: 'test title',
     description: 'test descr',
     rusTitle: 'rus string',
     rusDescription: 'rus string',
-    imgSource: '#',
+    imgSource: this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedFile),
   };
 
   private querySubscription: Subscription;
@@ -38,7 +38,8 @@ export class EditVideoComponent implements OnInit {
     public youTubeService: YoutubeService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private sanitizer: DomSanitizer
   ) {
     this._createForm();
     this.querySubscription = route.queryParams.subscribe(
@@ -103,13 +104,15 @@ export class EditVideoComponent implements OnInit {
 
     if (this.queryId === 'adding_new_video') {
       if (this.selectedFile === undefined) {
-        console.log('error, no video provided');
+        console.log('error, no img provided');
       } else {
         const LocalStorageVideo = {
           title: enTitle,
           description: enDescription,
           videoId: 'fakeId',
-          imgSource: '../../../assets/swallow.jpg',
+          imgSource: this.sanitizer.bypassSecurityTrustResourceUrl(
+            this.selectedFile
+          ),
         };
         this.youTubeService.uploadedVideos.push(LocalStorageVideo);
       }
@@ -128,6 +131,9 @@ export class EditVideoComponent implements OnInit {
           });
         });
     }
+    this.router.navigateByUrl('/').then(() => {
+      this.router.navigate(['/third']).then((r) => {});
+    });
   }
 
   onCancel(): void {
@@ -137,12 +143,18 @@ export class EditVideoComponent implements OnInit {
   }
 
   onFileSelected(event: any): void {
-    this.selectedFile = event.target.files[0];
-    console.log(this.selectedFile);
-  }
-
-  onUpload(event: any): void {
-    console.log(event[0]);
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      console.log(reader.result);
+      if (reader.result) {
+        this.selectedFile = reader.result.toString();
+        this.data.imgSource = this.sanitizer.bypassSecurityTrustResourceUrl(
+          this.selectedFile
+        );
+      }
+    };
   }
 
   ngOnInit() {

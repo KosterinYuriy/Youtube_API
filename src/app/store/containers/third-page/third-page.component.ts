@@ -5,6 +5,7 @@ import { IListsOfVideos } from '../../models/listsOfVideos.interface';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AngularConfirmingModalComponent } from '../../../components/angular-material-modal/confirmingDialog/angular-confirming-modal.component';
+import { Observable, Subscriber } from 'rxjs';
 
 @Component({
   selector: 'app-third-page',
@@ -22,9 +23,7 @@ export class ThirdPageComponent implements OnInit {
 
   getMyVideos(): void {
     this.myVideos = [];
-    for (let i = 0; i < this.youTubeService.uploadedVideos.length; i += 1) {
-      this.myVideos.push(this.youTubeService.uploadedVideos[i]);
-    }
+
     this.youTubeService
       .getVideosForChanel('UCZ1YKVCERHs3LlxsRWnv_yA', 15)
       .subscribe((lists: IListsOfVideos) => {
@@ -36,6 +35,10 @@ export class ThirdPageComponent implements OnInit {
             description: element.snippet.description.slice(0, 80),
           };
           this.myVideos.push(res);
+        }
+        for (const i of this.youTubeService.uploadedVideos) {
+          this.myVideos.push(i);
+          console.log(this.myVideos);
         }
       });
   }
