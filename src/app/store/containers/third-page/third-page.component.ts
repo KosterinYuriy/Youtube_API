@@ -22,6 +22,9 @@ export class ThirdPageComponent implements OnInit {
 
   getMyVideos(): void {
     this.myVideos = [];
+    for (let i = 0; i < this.youTubeService.uploadedVideos.length; i += 1) {
+      this.myVideos.push(this.youTubeService.uploadedVideos[i]);
+    }
     this.youTubeService
       .getVideosForChanel('UCZ1YKVCERHs3LlxsRWnv_yA', 15)
       .subscribe((lists: IListsOfVideos) => {
@@ -35,22 +38,6 @@ export class ThirdPageComponent implements OnInit {
           this.myVideos.push(res);
         }
       });
-  }
-  getMyVideos2(): void {
-    this.myVideos = [];
-
-    for (let i = 0; i < 5; i += 1) {
-      const res: IVideo = {
-        videoId: 'videoId' + i,
-        imgSource: 'imgSource' + i,
-        title: 'title' + i,
-        description:
-          'description description description description description description description description' +
-          i,
-      };
-      this.myVideos.push(res);
-    }
-    console.log(this.myVideos);
   }
 
   openDialogOnDelete(videoId: string): void {

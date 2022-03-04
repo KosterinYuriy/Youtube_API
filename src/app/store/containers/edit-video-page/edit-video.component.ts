@@ -105,11 +105,13 @@ export class EditVideoComponent implements OnInit {
       if (this.selectedFile === undefined) {
         console.log('error, no video provided');
       } else {
-        this.youTubeService
-          .addVideoForChannel(enDescription, enTitle, this.selectedFile)
-          .subscribe((res) => {
-            console.log(res);
-          });
+        const LocalStorageVideo = {
+          title: enTitle,
+          description: enDescription,
+          videoId: 'fakeId',
+          imgSource: '../../../assets/swallow.jpg',
+        };
+        this.youTubeService.uploadedVideos.push(LocalStorageVideo);
       }
     } else {
       this.youTubeService
