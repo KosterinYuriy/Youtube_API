@@ -9,6 +9,7 @@ import { ISearchListsOfVideos } from '../models/searchListsOfVideos.interface';
 import { IVideo } from '../models/video.interface';
 import { IUpdateVideoDescription } from '../models/UpdateVideoDescription.interface';
 import { IGetVideoById } from '../models/GetVideoById.interface';
+import { IUpdateVideoData } from '../models/UpdateVideoData.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,7 @@ export class YoutubeService {
   apiKey: string = 'AIzaSyBz1PwR8Q1abz_NIeQ0yg1rWNhK6Mmf9yw';
 
   public videos: IVideo[] = [];
-
+  public uploadedVideos: IVideo[] = [];
   public query!: string;
 
   putRequestBody: IRequestBody = {

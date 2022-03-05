@@ -6,7 +6,12 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { YoutubeService } from '../../services/youtube.service';
 import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
 import { HttpClientModule } from '@angular/common/http';
-import { MatDialog } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_SCROLL_STRATEGY,
+  MatDialog,
+  MatDialogModule,
+} from '@angular/material/dialog';
+import { Overlay } from '@angular/cdk/overlay';
 
 describe('ThirdPageComponent (minimal)', () => {
   let component: ThirdPageComponent;
@@ -21,6 +26,8 @@ describe('ThirdPageComponent (minimal)', () => {
         providers: [
           YoutubeService,
           SocialAuthService,
+          MatDialog,
+          Overlay,
           {
             provide: Router,
             useValue: RouterSpy,
@@ -41,7 +48,7 @@ describe('ThirdPageComponent (minimal)', () => {
             },
           },
         ],
-        imports: [HttpClientModule, MatDialog],
+        imports: [HttpClientModule, MatDialogModule],
       }).compileComponents();
     })
   );
