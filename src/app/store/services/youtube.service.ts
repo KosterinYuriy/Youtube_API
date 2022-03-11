@@ -9,7 +9,8 @@ import { ISearchListsOfVideos } from '../models/searchListsOfVideos.interface';
 import { IVideo } from '../models/video.interface';
 import { IUpdateVideoDescription } from '../models/UpdateVideoDescription.interface';
 import { IGetVideoById } from '../models/GetVideoById.interface';
-import { IUpdateVideoData } from '../models/UpdateVideoData.interface';
+import { IGetProfileInfo } from '../models/getProfileInfo.interface';
+import { IGetProfilePlaylists } from '../models/getProfilePlaylists.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -116,6 +117,31 @@ export class YoutubeService {
       .set('Content-Type', 'application/json');
   }
 
+  getProfileInfo(): Observable<IGetProfileInfo> {
+    const profileInfoUrl =
+      this.url +
+      '/channels' +
+      '?part=snippet&part=statistics&part=brandingSettings' +
+      '&mine=true' +
+      '&key=' +
+      this.apiKey;
+
+    const headers = this.setHeaders();
+
+    return this.http.get<IGetProfileInfo>(profileInfoUrl, { headers });
+  }
+
+  getProfilePlaylists(): Observable<IGetProfilePlaylists> {
+    const channelPlaylistsUrl =
+      this.url + '/playlists?part=snippet&mine=true&key=' + this.apiKey;
+
+    const headers = this.setHeaders();
+
+    return this.http.get<IGetProfilePlaylists>(channelPlaylistsUrl, {
+      headers,
+    });
+  }
+
   updateChannelDescription(
     newDescription: string,
     newDefaultLanguage: string
@@ -176,43 +202,5 @@ export class YoutubeService {
     this.http.delete(deleteUrl, { headers }).subscribe((res) => {
       console.log(res);
     });
-  }
-
-  addVideoForChannel(
-    newVideoDescription: string,
-    newVideoTitle: string,
-    videoFile: File
-  ): Observable<object> {
-    const addVideoUrl =
-      this.url + '/videos' + '?part=snippet%2Cstatus' + '&key=' + this.apiKey;
-
-    const headers = this.setHeaders();
-
-    //todo
-
-    const postRequestBody = {
-      snippet: {
-        categoryId: '22',
-        description: 'newVideoDescription',
-        title: 'newVideoTitle',
-      },
-      status: {
-        privacyStatus: 'private',
-      },
-    };
-
-    const postRequestTwo = {
-      snippet: {
-        categoryId: '22',
-        description: 'Description of uploaded video.',
-        title: 'Test video upload.',
-      },
-      status: {
-        privacyStatus: 'private',
-      },
-    };
-    return new Observable<object>();
-    //return this.http.post<object>(addVideoUrl, postRequestBody, { headers, reportProgress: true,});
-    //return this.http.post<object>(addVideoUrl, postRequestBody, { headers, reportProgress: true,});
   }
 }
