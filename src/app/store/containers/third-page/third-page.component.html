@@ -18,25 +18,27 @@
         <div class="description">{{ video.description | cutText: 80 }}</div>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-        <mat-icon
-          class="white-icon icon-display"
-          [matMenuTriggerFor]="afterMenu"
-        >
-          edit
-        </mat-icon>
-        <mat-menu #afterMenu="matMenu" xPosition="before">
-          <button mat-menu-item (click)="openDialogOnDelete(video.videoId)">
-            Delete video
-          </button>
-          <button
-            mat-menu-item
-            (click)="navigateOnVideoChangePage(video.videoId)"
+        <button mat-button (click)="onLike(video.videoId)">LIKE</button>
+        <button mat-button (click)="onDisLike(video.videoId)">DISLIKE</button>
+        <div *ngIf="!(video.videoId === 'fakeId')" class="card-actions-wrapper">
+          <mat-icon
+            class="white-icon icon-display"
+            [matMenuTriggerFor]="afterMenu"
           >
-            Edit video
-          </button>
-        </mat-menu>
+            edit
+          </mat-icon>
+          <mat-menu #afterMenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="openDialogOnDelete(video.videoId)">
+              Delete video
+            </button>
+            <button
+              mat-menu-item
+              (click)="navigateOnVideoChangePage(video.videoId)"
+            >
+              Edit video
+            </button>
+          </mat-menu>
+        </div>
       </mat-card-actions>
     </mat-card>
   </div>
