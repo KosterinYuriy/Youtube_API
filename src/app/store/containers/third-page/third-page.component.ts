@@ -5,6 +5,7 @@ import { IListsOfVideos } from '../../models/listsOfVideos.interface';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AngularConfirmingModalComponent } from '../../../components/angular-material-modal/confirmingDialog/angular-confirming-modal.component';
+import { IVideoWithStats } from '../../models/videoWithStats.interface';
 
 @Component({
   selector: 'app-third-page',
@@ -13,12 +14,28 @@ import { AngularConfirmingModalComponent } from '../../../components/angular-mat
 })
 export class ThirdPageComponent implements OnInit {
   public myVideos: IVideo[] = [];
+  videoStats = {
+    likesCount: '0',
+    ViewsCount: '0',
+    commentsCount: '0',
+  };
 
   constructor(
     public youTubeService: YoutubeService,
     private router: Router,
     public dialog: MatDialog
   ) {}
+
+  getVideoStatistics(videoId: string): void {
+    this.youTubeService.getVideoStatistics(videoId).subscribe((res) => {
+      // this.videoStats = {
+      //   likesCount: res[0].statistics.likeCount,
+      //   ViewsCount: res[0].statistics.viewCount,
+      //   commentsCount: res[0].statistics.commentCount
+      // }
+      console.log('res stats', res);
+    });
+  }
 
   getMyVideos(): void {
     this.myVideos = [];
@@ -35,11 +52,28 @@ export class ThirdPageComponent implements OnInit {
           };
           this.myVideos.push(res);
         }
-        for (const i of this.youTubeService.uploadedVideos) {
-          this.myVideos.push(i);
-          console.log(this.myVideos);
-        }
+        console.log(this.myVideos);
       });
+  }
+
+  onLike(videoId: string): void {
+    this.getVideoStatistics(videoId);
+    console.log(this.videoStats);
+    this.youTubeService.likeState = true;
+    this.youTubeService.setLikeToVideo(videoId).subscribe((res) => {
+      console.log('resultLike', res);
+    });
+
+    console.log(this.videoStats.likesCount);
+  }
+
+  onDisLike(videoId: string): void {
+    this.getVideoStatistics(videoId);
+    console.log(this.videoStats);
+    this.youTubeService.likeState = false;
+    this.youTubeService.setLikeToVideo(videoId).subscribe((res) => {
+      console.log('resultLike', res);
+    });
   }
 
   openDialogOnDelete(videoId: string): void {

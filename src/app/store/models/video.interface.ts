@@ -5,10 +5,4 @@ export interface IVideo {
   title: string;
   description: string;
   imgSource: SafeResourceUrl;
-  // localizations: {
-  //   ru:{
-  //     title : string
-  //     description: string
-  //   }
-  // }
 }

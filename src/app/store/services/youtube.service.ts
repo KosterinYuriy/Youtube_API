@@ -23,6 +23,7 @@ export class YoutubeService {
   public videos: IVideo[] = [];
   public uploadedVideos: IVideo[] = [];
   public query!: string;
+  public likeState: boolean = true;
 
   putRequestBody: IRequestBodyInterface = {
     id: 'UCZ1YKVCERHs3LlxsRWnv_yA',
@@ -61,10 +62,6 @@ export class YoutubeService {
     this.authService.authenticate();
   }
 
-  refreshToken(): void {
-    this.authService.refreshToken();
-  }
-
   getVideosForChanel(
     channel: string,
     maxResults: number
@@ -76,7 +73,7 @@ export class YoutubeService {
       this.apiKey +
       '&channelId=' +
       channel +
-      '&order=date&part=snippet &type=video,id&maxResults=' +
+      '&order=date&part=snippet&type=video,id&maxResults=' +
       maxResults;
     return this.http.get<IListsOfVideos>(SearchUrl);
   }
@@ -85,7 +82,7 @@ export class YoutubeService {
     const SearchUrl =
       this.url +
       '/search' +
-      '?part=id&part=snippet&maxResults=' +
+      '?part=id&part=snippet&statistics&maxResults=' +
       maxResults +
       '&q=' +
       this.query +
@@ -113,6 +110,43 @@ export class YoutubeService {
       .set('Authorization', 'Bearer ' + this.authService.access_token)
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json');
+  }
+
+  getVideoStatistics(videoId: string): Observable<any> {
+    const getVideoStatsUrl: string =
+      this.url +
+      '/videos?part=snippet%2Cstatistics&id=' +
+      videoId +
+      '&key=' +
+      this.apiKey;
+
+    const headers = this.setHeaders();
+
+    return this.http.get(getVideoStatsUrl, { headers });
+  }
+
+  setLikeToVideo(videoId: string): Observable<any> {
+    let likeOrDislike: string;
+
+    if (this.likeState) {
+      likeOrDislike = 'like';
+    } else {
+      likeOrDislike = 'dislike';
+    }
+
+    const setLikeUrl =
+      this.url +
+      '/videos/rate?id=' +
+      videoId +
+      '&rating=' +
+      likeOrDislike +
+      '&key=' +
+      this.apiKey;
+
+    const headers = this.setHeaders();
+    console.log('headers', headers);
+
+    return this.http.post(setLikeUrl, {}, { headers });
   }
 
   getProfileInfo(): Observable<IGetProfileInfo> {

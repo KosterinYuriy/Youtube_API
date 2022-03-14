@@ -31,7 +31,7 @@ export class SecondPageComponent implements OnInit {
     this.youtubeService.query = this.searchQuery;
     this.youtubeService.getVideosForRequest(10).subscribe((res) => {
       this.youtubeService.videos = [];
-
+      console.log('res', res);
       for (const element of res.items) {
         const res2: IVideo = {
           videoId: element.id.videoId,
@@ -43,6 +43,7 @@ export class SecondPageComponent implements OnInit {
       }
 
       this.secondPageVideos = this.youtubeService.videos;
+      console.log(this.secondPageVideos);
     });
   }
 }
