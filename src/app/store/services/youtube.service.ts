@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { observable, Observable } from 'rxjs';
 import { IListsOfVideos } from '../models/listsOfVideos.interface';
-import { IRequestBody } from '../models/IRequestBody';
+import { IRequestBodyInterface } from '../models/IRequestBody.interface';
 import { IUpdateChannelDescription } from '../models/UpdateChannelDescription.interface';
 import { AuthService } from './auth.service';
 import { ISearchListsOfVideos } from '../models/searchListsOfVideos.interface';
@@ -24,7 +24,7 @@ export class YoutubeService {
   public uploadedVideos: IVideo[] = [];
   public query!: string;
 
-  putRequestBody: IRequestBody = {
+  putRequestBody: IRequestBodyInterface = {
     id: 'UCZ1YKVCERHs3LlxsRWnv_yA',
     brandingSettings: {
       channel: {
@@ -35,22 +35,20 @@ export class YoutubeService {
   };
 
   updateRequestBody: any = {
-    id: 'tfYipikLWDo',
+    id: 'K-JS0CypkxE',
     snippet: {
+      title: 'title10',
       categoryId: '22',
-      defaultLanguage: 'en',
-      description: 'Custom Description',
-      tags: ['new tags'],
-      title: 'Custom title',
+      description: '____',
     },
     localizations: {
-      es: {
-        title: 'no hay nada a ver aqui',
-        description: 'Esta descripcion es en español.',
+      en: {
+        description: 'en localizations',
+        title: 'en title',
       },
       ru: {
-        title: '',
-        description: '',
+        description: 'ру описание',
+        title: 'ру заголвок',
       },
     },
   };
@@ -147,14 +145,15 @@ export class YoutubeService {
     newDefaultLanguage: string
   ): Observable<IUpdateChannelDescription> {
     const updateChannelDescriptionUrl =
-      this.url + '/search' + '?key=' + '?part=brandingSettings';
+      this.url + '/channels?part=brandingSettings&key=' + this.apiKey;
 
     this.putRequestBody.brandingSettings.channel.description = newDescription;
     this.putRequestBody.brandingSettings.channel.defaultLanguage =
       newDefaultLanguage;
 
     const headers = this.setHeaders();
-
+    console.log('headers', headers);
+    console.log('body', this.putRequestBody);
     return this.http.put<IUpdateChannelDescription>(
       updateChannelDescriptionUrl,
       this.putRequestBody,
@@ -170,21 +169,30 @@ export class YoutubeService {
     newRusDescription?: string
   ): Observable<IUpdateVideoDescription> {
     const updateVideoDescriptionUrl =
-      this.url + '/videos' + '?part=snippet%2Clocalizations';
+      this.url + '/videos?part=snippet%2Clocalizations&key=' + this.apiKey;
     this.updateRequestBody.id = videoId;
     this.updateRequestBody.snippet.title = newVideoTitle;
     this.updateRequestBody.snippet.description = newVideoDescription;
-    const headers = this.setHeaders();
 
     if (newRusTitle === undefined || newRusDescription === undefined) {
+      const headers = this.setHeaders();
+
+      console.log('data less', this.updateRequestBody);
+      console.log(headers);
+
       return this.http.put<IUpdateVideoDescription>(
         updateVideoDescriptionUrl,
         this.updateRequestBody,
         { headers }
       );
     } else {
+      const headers = this.setHeaders();
+
       this.updateRequestBody.localizations.ru.title = newRusTitle;
       this.updateRequestBody.localizations.ru.description = newRusDescription;
+
+      console.log('data full', this.updateRequestBody);
+      console.log(headers);
 
       return this.http.put<IUpdateVideoDescription>(
         updateVideoDescriptionUrl,

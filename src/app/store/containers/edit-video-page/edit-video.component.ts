@@ -121,11 +121,12 @@ export class EditVideoComponent implements OnInit {
         .updateVideoDescription(
           enDescription,
           enTitle,
+          this.queryId,
           ruTitle,
-          ruDescription,
-          this.queryId
+          ruDescription
         )
         .subscribe((res: IUpdateVideoDescription) => {
+          console.log('updateVideoDescriptionResult', res);
           this.router.navigateByUrl('/').then(() => {
             this.router.navigate(['/third']).then((r) => {});
           });

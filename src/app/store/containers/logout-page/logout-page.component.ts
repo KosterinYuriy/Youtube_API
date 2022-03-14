@@ -7,6 +7,10 @@ import { IGetProfileInfo } from '../../models/getProfileInfo.interface';
 import { IVideo } from '../../models/video.interface';
 import { IListsOfVideos } from '../../models/listsOfVideos.interface';
 import { IGetProfilePlaylists } from '../../models/getProfilePlaylists.interface';
+import {
+  defaultProfileData,
+  defaultProfilePlaylists,
+} from '../../models/defaultData/defualtProfileData';
 
 @Component({
   selector: 'app-logout-page',
@@ -22,70 +26,22 @@ export class LogoutPageComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'weight'];
 
-  defaultProfilePlaylists: IGetProfilePlaylists = {
-    items: [
-      {
-        snippet: {
-          title: 'default playlist title',
-          description: 'default playlist description',
-          thumbnails: {
-            medium: {
-              url: '#',
-              width: 100,
-              height: 100,
-            },
-          },
-        },
-      },
-    ],
-  };
+  defaultProfilePlaylists: IGetProfilePlaylists = defaultProfilePlaylists;
 
-  defaultProfileData: IGetProfileInfo = {
-    items: [
-      {
-        snippet: {
-          title: 'string',
-          description: 'string',
-          publishedAt: 'string',
-          thumbnails: {
-            default: {
-              url: 'string',
-              width: 300,
-              height: 300,
-            },
-          },
-        },
-        statistics: {
-          viewCount: '17',
-          subscriberCount: '0',
-          videoCount: '4',
-        },
-        brandingSettings: {
-          channel: {
-            title: 'Default title',
-            description: ' Default Description',
-            defaultLanguage: 'string',
-          },
-          image: {
-            bannerExternalUrl: 'string',
-          },
-        },
-      },
-    ],
-  };
+  defaultProfileData: IGetProfileInfo = defaultProfileData;
 
   dataSource = [
     {
       name: 'Subscribers',
-      weight: this.defaultProfileData.items[0].statistics.subscriberCount,
+      weight: this._subscriberCount,
     },
     {
       name: 'View count',
-      weight: this.defaultProfileData.items[0].statistics.viewCount,
+      weight: this._viewCount,
     },
     {
       name: 'Videos count',
-      weight: this.defaultProfileData.items[0].statistics.videoCount,
+      weight: this._videoCount,
     },
   ];
 
@@ -95,28 +51,65 @@ export class LogoutPageComponent implements OnInit {
     public matDialog: MatDialog
   ) {}
 
-  refreshToken(): void {
-    this.youTubeService.refreshToken();
+  get _channelTitle() {
+    return this.defaultProfileData.items[0].snippet.title;
+  }
+  get _channelTime() {
+    return this.defaultProfileData.items[0].snippet.publishedAt.substring(
+      0,
+      10
+    );
   }
 
-  ngOnInit(): void {
-    this.youTubeService.authenticate();
-    this.getMyVideos();
-    this.getMyVideosPlaylists();
+  get _channelDescription() {
+    return this.defaultProfileData.items[0].snippet.description;
+  }
+
+  get _subscriberCount() {
+    return this.defaultProfileData.items[0].statistics.subscriberCount;
+  }
+  get _viewCount() {
+    return this.defaultProfileData.items[0].statistics.viewCount;
+  }
+
+  get _videoCount() {
+    return this.defaultProfileData.items[0].statistics.videoCount;
+  }
+
+  getProfileInfo(): void {
     this.youTubeService.getProfileInfo().subscribe((res) => {
       this.defaultProfileData = res;
       console.log(this.defaultProfileData);
+      this.dataSource = [
+        {
+          name: 'Subscribers',
+          weight: this._subscriberCount,
+        },
+        {
+          name: 'View count',
+          weight: this._viewCount,
+        },
+        {
+          name: 'Videos count',
+          weight: this._videoCount,
+        },
+      ];
     });
+  }
+
+  getProfilePlaylists(): void {
     this.youTubeService.getProfilePlaylists().subscribe((res) => {
       this.defaultProfilePlaylists = res;
       console.log(this.defaultProfilePlaylists);
     });
   }
 
-  onChangeProfileData(): void {
-    this.youTubeService.getProfileInfo().subscribe((res) => {
-      this.defaultProfileData = res;
-    });
+  ngOnInit(): void {
+    this.youTubeService.authenticate();
+    this.getMyVideos();
+    this.getMyVideosPlaylists();
+    this.getProfileInfo();
+    this.getProfilePlaylists();
   }
 
   getMyVideos(): void {
@@ -134,10 +127,6 @@ export class LogoutPageComponent implements OnInit {
           };
           this.myVideos.push(res);
         }
-        for (const i of this.youTubeService.uploadedVideos) {
-          this.myVideos.push(i);
-          console.log(this.myVideos);
-        }
       });
   }
 
@@ -146,13 +135,13 @@ export class LogoutPageComponent implements OnInit {
 
     this.youTubeService.getProfilePlaylists().subscribe((res) => {
       for (const element of res.items) {
-        const res: IVideo = {
+        const res2: IVideo = {
           videoId: 'fakeId',
           imgSource: element.snippet.thumbnails.medium.url,
           title: element.snippet.title,
           description: element.snippet.description.slice(0, 80),
         };
-        this.myVideosPlaylists.push(res);
+        this.myVideosPlaylists.push(res2);
       }
     });
   }
@@ -161,7 +150,7 @@ export class LogoutPageComponent implements OnInit {
     const dialogRef = this.matDialog.open(
       UpdateChannelDescriptionFormComponent,
       {
-        width: '350px',
+        width: '500px',
         data: {
           language: this.defaultLanguage,
           description: this.defaultDescription,
@@ -171,10 +160,11 @@ export class LogoutPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
+      console.log('res', result);
       this.youTubeService
         .updateChannelDescription(result.description, result.language)
         .subscribe((res) => {
-          console.log(res);
+          console.log(' updateChannelDescriptionResult', res);
         });
       console.log('res', result);
     });

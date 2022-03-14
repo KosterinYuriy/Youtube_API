@@ -17,17 +17,17 @@
         />
       </div>
       <div class="profileData">
-        <h4>{{ defaultProfileData.items[0].snippet.title }}</h4>
+        <h4>{{ _channelTitle }}</h4>
         <h5>
           Creation date:
-          {{ defaultProfileData.items[0].snippet.publishedAt.substring(0, 10) }}
+          {{ _channelTime }}
         </h5>
       </div>
     </div>
     <mat-tab-group>
       <mat-tab label="Home">
         <div class="scrollable-area">
-          <div class="example-card-cover" *ngFor="let video of this.myVideos">
+          <div class="example-card-cover" *ngFor="let video of myVideos">
             <mat-card class="example-card">
               <mat-card-header>
                 <mat-card-title>{{ video.title | cutText: 40 }}</mat-card-title>
@@ -52,7 +52,7 @@
       </mat-tab>
       <mat-tab label="Videos">
         <div class="scrollable-area">
-          <div class="example-card-cover" *ngFor="let video of this.myVideos">
+          <div class="example-card-cover" *ngFor="let video of myVideos">
             <mat-card class="example-card">
               <mat-card-header>
                 <mat-card-title>{{ video.title | cutText: 40 }}</mat-card-title>
@@ -79,7 +79,7 @@
         <div class="scrollable-area">
           <div
             class="example-card-cover"
-            *ngFor="let videoPlaylists of this.myVideosPlaylists"
+            *ngFor="let videoPlaylists of myVideosPlaylists"
           >
             <mat-card class="example-card">
               <mat-card-header>
@@ -103,7 +103,10 @@
       </mat-tab>
       <mat-tab label="About">
         <h5>Channel Description</h5>
-        <p>{{ defaultProfileData.items[0].snippet.description }}</p>
+        <p>{{ _channelDescription }}</p>
+        <button mat-raised-button (click)="openDialog()">
+          Change description
+        </button>
       </mat-tab>
     </mat-tab-group>
   </div>
@@ -124,8 +127,5 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-
-    <!--    <button mat-raised-button color="primary" (click)="openDialog()">Change data </button>-->
-    <!--    <button mat-raised-button color="accent" (click)="refreshToken()">Refresh token</button>-->
   </div>
 </div>
