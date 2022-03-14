@@ -4,6 +4,7 @@ import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
+import { YoutubeService } from '../../services/youtube.service';
 
 describe('LogoutPageComponent (minimal)', () => {
   it('should create', () => {
@@ -11,6 +12,7 @@ describe('LogoutPageComponent (minimal)', () => {
       declarations: [LogoutPageComponent],
       providers: [
         SocialAuthService,
+        YoutubeService,
         {
           provide: 'SocialAuthServiceConfig',
           useValue: {

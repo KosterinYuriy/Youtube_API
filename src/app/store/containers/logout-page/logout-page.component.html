@@ -1,34 +1,131 @@
-<h1>This is profile page</h1>
-
-
-<div class="main" *ngIf="socialAuthService.authState | async as socialUser">
-  <section class="top-card">
-    <img src="{{socialUser.photoUrl}}" alt="UserPhoto">
-    <div class="menu-icon">
-      <div class="menu item1"><i class="fas fa-heart"></i></div>
-      <div class="menu item2"><i class="fas fa-bars"></i></div>
+<div class="container">
+  <div class="banner">
+    <img
+      class="cover"
+      src="../../../../assets/WallpaperDog-10728896.jpg"
+      alt="Channel Banner"
+    />
+    <mat-divider></mat-divider>
+  </div>
+  <div class="channel">
+    <div class="profileGroup">
+      <div class="profileIcon">
+        <img
+          class="cover center"
+          src="../../../../assets/2345.jpg"
+          alt="Profile Icon"
+        />
+      </div>
+      <div class="profileData">
+        <h4>{{ _channelTitle }}</h4>
+        <h5>
+          Creation date:
+          {{ _channelTime }}
+        </h5>
+      </div>
     </div>
-  </section>
+    <mat-tab-group>
+      <mat-tab label="Home">
+        <div class="scrollable-area">
+          <div class="example-card-cover" *ngFor="let video of myVideos">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <mat-card-title>{{ video.title | cutText: 40 }}</mat-card-title>
+              </mat-card-header>
+              <img
+                [src]="video.imgSource"
+                class="card-img-top contain"
+                alt="..."
+              />
+              <mat-card-content>
+                <div class="description">
+                  {{ video.description | cutText: 80 }}
+                </div>
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-button>LIKE</button>
+                <button mat-button>SHARE</button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Videos">
+        <div class="scrollable-area">
+          <div class="example-card-cover" *ngFor="let video of myVideos">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <mat-card-title>{{ video.title | cutText: 40 }}</mat-card-title>
+              </mat-card-header>
+              <img
+                [src]="video.imgSource"
+                class="card-img-top contain"
+                alt="..."
+              />
+              <mat-card-content>
+                <div class="description">
+                  {{ video.description | cutText: 80 }}
+                </div>
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-button>LIKE</button>
+                <button mat-button>SHARE</button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Playlists">
+        <div class="scrollable-area">
+          <div
+            class="example-card-cover"
+            *ngFor="let videoPlaylists of myVideosPlaylists"
+          >
+            <mat-card class="example-card">
+              <mat-card-header>
+                <mat-card-title>{{
+                  videoPlaylists.title | cutText: 40
+                }}</mat-card-title>
+              </mat-card-header>
+              <img [src]="videoPlaylists.imgSource" class="contain" alt="..." />
+              <div class="card-img"></div>
+              <mat-card-content>
+                <div class="description">
+                  {{ videoPlaylists.description | cutText: 80 }}
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Channels">
+        <p>This channel doesn't feature any other channels</p>
+      </mat-tab>
+      <mat-tab label="About">
+        <h5>Channel Description</h5>
+        <p>{{ _channelDescription }}</p>
+        <button mat-raised-button (click)="openDialog()">
+          Change description
+        </button>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <div class="statistics">
+    <mat-divider></mat-divider>
+    <h3>Statistics</h3>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Field</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
 
-  <section class="middle-card">
-    <h1> {{socialUser.name}}</h1>
-    <p class="mail">{{socialUser.email}}</p>
-    <p>
-      User description User description User description User description
-      User description User description User description User description
+      <ng-container matColumnDef="weight">
+        <th mat-header-cell *matHeaderCellDef>Value</th>
+        <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+      </ng-container>
 
-    </p>
-  </section>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
 </div>
-
-
-<button mat-raised-button color="primary" (click)="openDialog()">Change data </button>
-<button mat-raised-button color="accent" (click)="refreshToken()">Refresh token</button>
-
-
-
-
-
-
-
-

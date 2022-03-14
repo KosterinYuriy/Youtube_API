@@ -35,6 +35,9 @@ import { CutTextPipe } from './pipes/cutText.pipe';
 import { UpdateVideoDataComponent } from './components/angular-material-modal/updateVideoData/angular-modal-video-dialog';
 import { EditVideoComponent } from './store/containers/edit-video-page/edit-video.component';
 import { AngularConfirmingModalComponent } from './components/angular-material-modal/confirmingDialog/angular-confirming-modal.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   imports: [
@@ -93,6 +96,9 @@ import { AngularConfirmingModalComponent } from './components/angular-material-m
     MatDialogModule,
     MatCardModule,
     RouterModule,
+    MatDividerModule,
+    MatTableModule,
+    MatTabsModule,
   ],
 
   declarations: [

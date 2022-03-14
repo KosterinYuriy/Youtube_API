@@ -5,7 +5,6 @@ import { IListsOfVideos } from '../../models/listsOfVideos.interface';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AngularConfirmingModalComponent } from '../../../components/angular-material-modal/confirmingDialog/angular-confirming-modal.component';
-import { Observable, Subscriber } from 'rxjs';
 
 @Component({
   selector: 'app-third-page',
